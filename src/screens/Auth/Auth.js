@@ -5,10 +5,14 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 import { AntDesign } from '@expo/vector-icons'
 import { CustomButton, Header, Paragraph } from '../../components'
+import useSignup from '../../hooks/useSignup'
 import styles from './styles'
+import useLogin from '../../hooks/useLogin'
 
 const Auth = () => {
    const [isLogIn, setIsLogIn] = useState(true)
+   const { signup } = useSignup()
+   const { login } = useLogin()
 
    const validation = yup.object().shape({
       email: yup.string().email('Your email is not valid.').required('Please enter your email.'),
@@ -36,8 +40,8 @@ const Auth = () => {
 
    const handleSetIsLogIn = () => setIsLogIn((prevState) => !prevState)
 
-   const onSubmit = useCallback((values) => {
-      console.log(values)
+   const onSubmit = useCallback(({ email, password }) => {
+      isLogIn ? login(email, password) : signup(email, password)
    }, [])
 
    return (
