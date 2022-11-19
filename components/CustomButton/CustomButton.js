@@ -1,5 +1,5 @@
 import { Pressable } from 'react-native'
-import { Paragraph } from '../index'
+import Paragraph from '../Paragraph/Paragraph'
 import styles from './styles'
 
 const CustomButton = ({ children, handleOnPress, buttonVariant, textVariant }) => {

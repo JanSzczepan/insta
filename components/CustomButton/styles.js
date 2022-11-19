@@ -7,6 +7,16 @@ const styles = StyleSheet.create({
       paddingVertical: 15,
       backgroundColor: theme.COLORS.black,
    },
+   auth: {
+      width: 100,
+      paddingVertical: 10,
+      backgroundColor: theme.COLORS.black,
+   },
+   wannaAuth: {
+      width: 100,
+      paddingVertical: 10,
+      backgroundColor: theme.COLORS.black,
+   },
 })
 
 export default styles

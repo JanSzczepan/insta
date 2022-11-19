@@ -1,9 +1,110 @@
-import { Text, View } from 'react-native'
+import { useCallback, useState } from 'react'
+import { View, TextInput } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from 'yup'
+import { CustomButton, Header, Paragraph } from '../../components'
+import styles from './styles'
 
 const Auth = () => {
+   const [isLogIn, setIsLogIn] = useState(true)
+
+   const validation = yup.object().shape({
+      email: yup.string().email('Your email is not valid.').required('Please enter your email.'),
+      password: yup.string().required('Please enter your password.').min(8, 'Your password is too short.'),
+      passwordConfirm: !isLogIn
+         ? yup
+              .string()
+              .required('Please retype your password.')
+              .oneOf([yup.ref('password')], 'Your passwords do not match.')
+         : false,
+   })
+
+   const {
+      control,
+      handleSubmit,
+      formState: { errors },
+   } = useForm({
+      resolver: yupResolver(validation),
+      defaultValues: {
+         email: '',
+         password: '',
+         passwordConfirm: '',
+      },
+   })
+
+   const handleSetIsLogIn = () => setIsLogIn((prevState) => !prevState)
+
+   const onSubmit = useCallback((values) => {
+      console.log(values)
+   }, [])
+
    return (
-      <View>
-         <Text>Auth</Text>
+      <View style={styles.container}>
+         <Header variant='textLarge'>Login</Header>
+         <View>
+            <Controller
+               control={control}
+               render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                     <TextInput
+                        style={styles.input}
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                     />
+                     {errors.email && <Paragraph variant={['textSmall', 'red']}>{errors.email.message}</Paragraph>}
+                  </>
+               )}
+               name={'email'}
+            />
+            <Controller
+               control={control}
+               render={({ field: { onChange, onBlur, value } }) => (
+                  <>
+                     <TextInput
+                        style={styles.input}
+                        onBlur={onBlur}
+                        onChangeText={onChange}
+                        value={value}
+                     />
+                     {errors.password && <Paragraph variant={['textSmall', 'red']}>{errors.password.message}</Paragraph>}
+                  </>
+               )}
+               name={'password'}
+            />
+            {!isLogIn && (
+               <Controller
+                  control={control}
+                  render={({ field: { onChange, onBlur, value } }) => (
+                     <>
+                        <TextInput
+                           style={styles.input}
+                           onBlur={onBlur}
+                           onChangeText={onChange}
+                           value={value}
+                        />
+                        {errors.passwordConfirm && <Paragraph variant={['textSmall', 'red']}>{errors.passwordConfirm.message}</Paragraph>}
+                     </>
+                  )}
+                  name={'passwordConfirm'}
+               />
+            )}
+         </View>
+         <CustomButton
+            handleOnPress={handleSubmit(onSubmit)}
+            buttonVariant='auth'
+            textVariant={['textMedium', 'white']}
+         >
+            {isLogIn ? 'Login' : 'Signup'}
+         </CustomButton>
+         <CustomButton
+            handleOnPress={handleSetIsLogIn}
+            buttonVariant='wannaAuth'
+            textVariant={['textMedium', 'white']}
+         >
+            {!isLogIn ? 'Login' : 'Signup'}
+         </CustomButton>
       </View>
    )
 }

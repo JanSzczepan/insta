@@ -8,11 +8,17 @@ const styles = StyleSheet.create({
    textMedium: {
       fontSize: theme.SIZES.medium,
    },
+   textSmall: {
+      fontSize: theme.SIZES.small,
+   },
    white: {
       color: theme.COLORS.white,
    },
    black: {
       color: theme.COLORS.black,
+   },
+   red: {
+      color: theme.COLORS.red,
    },
 })
 

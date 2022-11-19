@@ -1,5 +1,5 @@
 import { View } from 'react-native'
-import { Paragraph } from '../index'
+import Paragraph from '../Paragraph/Paragraph'
 
 const Header = ({ children, variant }) => {
    return (
