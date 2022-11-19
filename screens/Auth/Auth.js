@@ -3,6 +3,7 @@ import { View, TextInput } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
+import { AntDesign } from '@expo/vector-icons'
 import { CustomButton, Header, Paragraph } from '../../components'
 import styles from './styles'
 
@@ -41,7 +42,22 @@ const Auth = () => {
 
    return (
       <View style={styles.container}>
-         <Header variant='textLarge'>Login</Header>
+         <Header variant='textLarge'>
+            {!isLogIn && (
+               <CustomButton
+                  handleOnPress={handleSetIsLogIn}
+                  buttonVariant='arrow'
+                  textVariant={['textMedium', 'black']}
+               >
+                  <AntDesign
+                     name='arrowleft'
+                     size={24}
+                     color='black'
+                  />
+               </CustomButton>
+            )}
+            {isLogIn ? 'Login' : 'Register'}
+         </Header>
          <View>
             <Controller
                control={control}
@@ -96,15 +112,17 @@ const Auth = () => {
             buttonVariant='auth'
             textVariant={['textMedium', 'white']}
          >
-            {isLogIn ? 'Login' : 'Signup'}
+            {isLogIn ? 'Login' : 'Register'}
          </CustomButton>
-         <CustomButton
-            handleOnPress={handleSetIsLogIn}
-            buttonVariant='wannaAuth'
-            textVariant={['textMedium', 'white']}
-         >
-            {!isLogIn ? 'Login' : 'Signup'}
-         </CustomButton>
+         {isLogIn && (
+            <CustomButton
+               handleOnPress={handleSetIsLogIn}
+               buttonVariant='wannaAuth'
+               textVariant={['textMedium', 'white']}
+            >
+               Signup
+            </CustomButton>
+         )}
       </View>
    )
 }
