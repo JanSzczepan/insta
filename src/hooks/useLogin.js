@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { SIGN_IN } from '../constants/actions'
+import { USER_PROFILE } from '../constants/secureStorageKeys'
 import { supabase } from '../supabase/supabaseClient'
+import { saveToSecureStorage } from '../utils/secureStorage'
 import { useAuthContext } from './useAuthContext'
 
 const useLogin = () => {
@@ -21,10 +23,11 @@ const useLogin = () => {
             setError(error)
             throw new Error(error)
          } else {
-            // console.log(data.user)
+            const value = JSON.stringify({ user: data.session.user, token: data.session.access_token })
+            saveToSecureStorage(USER_PROFILE, value)
             dispatch({
                type: SIGN_IN,
-               payload: data.user,
+               payload: data.session.user,
             })
          }
       } catch (error) {
@@ -33,28 +36,6 @@ const useLogin = () => {
 
       setIsLoading(false)
    }
-
-   //    const response = await fetch('/api/user/login', {
-   //       method: 'POST',
-   //       body: JSON.stringify({ email, password }),
-   //       headers: {
-   //          'Content-Type': 'application/json',
-   //       },
-   //    })
-   //    const json = await response.json()
-
-   //    if (!response.ok) {
-   //       setError(json.err)
-   //       setIsLoading(false)
-   //    }
-   //    if (response.ok) {
-   //       localStorage.setItem('user', JSON.stringify(json))
-
-   //       dispatch({ type: 'LOGIN', payload: json })
-
-   //       setIsLoading(false)
-   //    }
-   // }
 
    return { login, isLoading, error }
 }

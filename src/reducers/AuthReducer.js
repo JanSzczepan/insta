@@ -8,7 +8,10 @@ export function authReducer(state, action) {
             user: action.payload,
          }
       case SIGN_OUT:
-         return { isSignedIn: false, user: null }
+         return {
+            isSignedIn: false,
+            user: null,
+         }
       default:
          return state
    }

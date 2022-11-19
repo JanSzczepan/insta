@@ -8,6 +8,7 @@ import { CustomButton, Header, Paragraph } from '../../components'
 import useSignup from '../../hooks/useSignup'
 import styles from './styles'
 import useLogin from '../../hooks/useLogin'
+import { useAuthContext } from '../../hooks/useAuthContext'
 
 const Auth = () => {
    const [isLogIn, setIsLogIn] = useState(true)
