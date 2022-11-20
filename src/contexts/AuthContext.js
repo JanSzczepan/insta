@@ -14,6 +14,24 @@ export const AuthContext = createContext()
 const AuthContextProvider = ({ children }) => {
    const [userState, dispatch] = useReducer(authReducer, initialState)
    console.log(userState)
+
+   useEffect(() => {
+      const getUser = async () => {
+         const user = await getFromSecureStorage(USER_PROFILE)
+
+         if (user) {
+            const parsedUser = JSON.parse(user)
+
+            dispatch({
+               type: SIGN_IN,
+               payload: parsedUser.user,
+            })
+         }
+      }
+
+      getUser()
+   }, [])
+
    return <AuthContext.Provider value={{ userState, dispatch }}>{children}</AuthContext.Provider>
 }
 

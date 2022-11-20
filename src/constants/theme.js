@@ -12,6 +12,8 @@ export const SIZES = {
    xxlarge: 32,
 }
 
+export const SPACING = {}
+
 export const FONTS = {
    bold: 'ProximaNovaBold',
    semiBold: 'ProximaNovaSemiBold',
