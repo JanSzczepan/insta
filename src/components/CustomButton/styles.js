@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       backgroundColor: theme.COLORS.black,
    },
+   post: {
+      width: 100,
+      paddingVertical: 10,
+      backgroundColor: theme.COLORS.black,
+   },
 })
 
 export default styles

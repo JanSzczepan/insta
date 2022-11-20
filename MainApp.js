@@ -58,8 +58,8 @@ const MainTabs = () => (
          }}
       />
       <Tabs.Screen
-         name='Profile'
-         component={Profile}
+         name='CreatePost'
+         component={CreatePost}
          options={{
             headerShown: false,
             tabBarLabel: () => null,
@@ -73,8 +73,8 @@ const MainTabs = () => (
          }}
       />
       <Tabs.Screen
-         name='CreatePost'
-         component={CreatePost}
+         name='Profile'
+         component={Profile}
          options={{
             headerShown: false,
             tabBarLabel: () => null,

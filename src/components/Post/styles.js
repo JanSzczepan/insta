@@ -3,10 +3,9 @@ import theme from '../../constants/theme'
 
 const styles = StyleSheet.create({
    container: {
-      padding: theme.SPACING.medium,
-   },
-   imageContainer: {
-      flexDirection: 'row',
+      padding: 10,
+      borderColor: 'black',
+      borderWidth: 5,
    },
 })
 

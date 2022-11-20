@@ -12,7 +12,11 @@ export const SIZES = {
    xxlarge: 32,
 }
 
-export const SPACING = {}
+export const SPACING = {
+   small: 8,
+   medium: 16,
+   large: 24,
+}
 
 export const FONTS = {
    bold: 'ProximaNovaBold',
@@ -27,6 +31,7 @@ export const SHADOWS = {}
 export default theme = {
    COLORS,
    SIZES,
+   SPACING,
    FONTS,
    SHADOWS,
 }

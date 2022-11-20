@@ -1,3 +1,6 @@
 export { default as CustomButton } from './CustomButton/CustomButton'
 export { default as Header } from './Header/Header'
 export { default as Paragraph } from './Paragraph/Paragraph'
+export { default as CustomImage } from './CustomImage/CustomImage'
+export { default as CustomStatusBar } from './CustomStatusBar/CustomStatusBar'
+export { default as Post } from './Post/Post'
