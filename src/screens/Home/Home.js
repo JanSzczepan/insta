@@ -5,7 +5,7 @@ import { Post } from '../../components'
 
 const Home = () => {
    const { data } = useQuery({ queryKey: ['posts'], queryFn: getPosts })
-   // console.log(query?.data?.data)
+
    return (
       <View>
          <FlatList

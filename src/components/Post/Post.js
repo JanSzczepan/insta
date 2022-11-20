@@ -1,12 +1,22 @@
-import { Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native'
+import { Pressable, Text, View } from 'react-native'
 import styles from './styles'
 
 const Post = ({ post }) => {
-   const { description } = post
+   const { description, id } = post
+
+   const { navigate } = useNavigation()
+
    return (
-      <View style={styles.container}>
-         <Text>{description}</Text>
-      </View>
+      <Pressable
+         onPress={() => {
+            navigate('PostDetails', { id })
+         }}
+      >
+         <View style={styles.container}>
+            <Text>{description}</Text>
+         </View>
+      </Pressable>
    )
 }
 

@@ -7,7 +7,7 @@ import { Feather } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useAuthContext } from './src/hooks/useAuthContext'
 
-import { Welcome, Auth, Home, Search, CreatePost, Profile } from './src/screens'
+import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails } from './src/screens'
 import theme from './src/constants/theme'
 
 const nativeTheme = {
@@ -107,11 +107,17 @@ const MainApp = () => {
       <NavigationContainer theme={nativeTheme}>
          <Stack.Navigator initialRouteName='Welcome'>
             {userState.isSignedIn ? (
-               <Stack.Screen
-                  name='MainTabs'
-                  component={MainTabs}
-                  options={{ headerShown: false }}
-               />
+               <>
+                  <Stack.Screen
+                     name='MainTabs'
+                     component={MainTabs}
+                     options={{ headerShown: false }}
+                  />
+                  <Stack.Screen
+                     name='PostDetails'
+                     component={PostDetails}
+                  ></Stack.Screen>
+               </>
             ) : (
                <>
                   <Stack.Screen

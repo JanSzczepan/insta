@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       backgroundColor: theme.COLORS.black,
    },
+   deletePost: {},
 })
 
 export default styles
