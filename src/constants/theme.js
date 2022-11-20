@@ -8,6 +8,8 @@ export const SIZES = {
    small: 12,
    medium: 16,
    large: 20,
+   xlarge: 26,
+   xxlarge: 32,
 }
 
 export const FONTS = {
@@ -15,6 +17,7 @@ export const FONTS = {
    semiBold: 'ProximaNovaSemiBold',
    regular: 'ProximaNovaRegular',
    light: 'ProximaNovaLight',
+   special: 'Billabong',
 }
 
 export const SHADOWS = {}
