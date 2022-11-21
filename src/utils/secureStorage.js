@@ -21,3 +21,12 @@ export const getFromSecureStorage = async (key) => {
       console.log(error)
    }
 }
+
+export const deleteFromSecureStorage = async (key) => {
+   try {
+      await SecureStore.deleteItemAsync(key)
+   } catch (error) {
+      console.log(error)
+      return error
+   }
+}
