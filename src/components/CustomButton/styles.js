@@ -3,9 +3,11 @@ import theme from '../../constants/theme'
 
 const styles = StyleSheet.create({
    welcome: {
-      paddingHorizontal: 10,
-      paddingVertical: 15,
-      backgroundColor: theme.COLORS.black,
+      marginVertical: theme.SPACING.xlarge,
+      paddingHorizontal: theme.SPACING.xxlarge,
+      paddingVertical: theme.SPACING.medium,
+      backgroundColor: theme.COLORS.blue,
+      borderRadius: theme.RADIUS.standard,
    },
    auth: {
       width: 100,
