@@ -23,3 +23,15 @@ export const deletePost = async (id) => {
    console.log(`Post with id ${id} deleted`, response)
    return response
 }
+
+export const getUserData = async (id) => {
+   const response = await supabase.from('users').select().eq('uuid', id).single()
+   console.log(`User with id ${id} fetched`, response)
+   return response
+}
+
+export const updateUserInfo = async ({ id, first_name, last_name, img_url }) => {
+   const response = await supabase.from('users').update({ first_name, last_name }).eq('uuid', id)
+   console.log(`User with id ${id} updated`, response)
+   return response
+}

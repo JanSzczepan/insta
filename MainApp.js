@@ -6,9 +6,11 @@ import { Octicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useAuthContext } from './src/hooks/useAuthContext'
+import { useQuery } from '@tanstack/react-query'
 
-import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails } from './src/screens'
+import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails, UserInfo } from './src/screens'
 import theme from './src/constants/theme'
+import { getUserData } from './src/api'
 
 const nativeTheme = {
    ...DefaultTheme,
@@ -101,6 +103,9 @@ const MainApp = () => {
       Billabong: require('./assets/fonts/Billabong.ttf'),
    })
 
+   const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
+
+   ////////////////////////
    if (!loaded) return null
 
    return (
@@ -108,15 +113,26 @@ const MainApp = () => {
          <Stack.Navigator initialRouteName='Welcome'>
             {userState.isSignedIn ? (
                <>
-                  <Stack.Screen
-                     name='MainTabs'
-                     component={MainTabs}
-                     options={{ headerShown: false }}
-                  />
-                  <Stack.Screen
-                     name='PostDetails'
-                     component={PostDetails}
-                  ></Stack.Screen>
+                  {Boolean(userData?.data.first_name && userData?.data.last_name) && (
+                     <>
+                        <Stack.Screen
+                           name='MainTabs'
+                           component={MainTabs}
+                           options={{ headerShown: false }}
+                        />
+                        <Stack.Screen
+                           name='PostDetails'
+                           component={PostDetails}
+                        ></Stack.Screen>
+                     </>
+                  )}
+                  {Boolean(!userData?.data?.first_name || !userData?.data?.last_name) && (
+                     <Stack.Screen
+                        name='UserInfo'
+                        component={UserInfo}
+                        options={{ headerShown: false }}
+                     />
+                  )}
                </>
             ) : (
                <>
