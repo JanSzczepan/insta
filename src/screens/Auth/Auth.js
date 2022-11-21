@@ -3,11 +3,12 @@ import { View, TextInput } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
-import { AntDesign } from '@expo/vector-icons'
 import { CustomButton, Header, Paragraph } from '../../components'
 import useSignup from '../../hooks/useSignup'
 import styles from './styles'
 import useLogin from '../../hooks/useLogin'
+import globalStyles from '../../constants/globalStyles'
+import theme from '../../constants/theme'
 
 const Auth = () => {
    const [isLogIn, setIsLogIn] = useState(true)
@@ -50,21 +51,11 @@ const Auth = () => {
 
    return (
       <View style={styles.container}>
-         <Header variant='textLarge'>
-            {!isLogIn && (
-               <CustomButton
-                  handleOnPress={handleSetIsLogIn}
-                  buttonVariant='arrow'
-                  textVariant={['textMedium', 'black']}
-               >
-                  <AntDesign
-                     name='arrowleft'
-                     size={24}
-                     color='black'
-                  />
-               </CustomButton>
-            )}
-            {isLogIn ? 'Login' : 'Register'}
+         <Header
+            headerVariant='auth'
+            textVariant={['textXXXLarge', 'black', 'center', 'insta']}
+         >
+            Instagram
          </Header>
          <View>
             <Controller
@@ -72,10 +63,12 @@ const Auth = () => {
                render={({ field: { onChange, onBlur, value } }) => (
                   <>
                      <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value}
+                        placeholder='Email'
+                        cursorColor={theme.COLORS.grey}
                      />
                      {errors.email && <Paragraph variant={['textSmall', 'red']}>{errors.email.message}</Paragraph>}
                   </>
@@ -87,10 +80,12 @@ const Auth = () => {
                render={({ field: { onChange, onBlur, value } }) => (
                   <>
                      <TextInput
-                        style={styles.input}
+                        style={globalStyles.input}
                         onBlur={onBlur}
                         onChangeText={onChange}
                         value={value}
+                        placeholder='Password'
+                        cursorColor={theme.COLORS.grey}
                      />
                      {errors.password && <Paragraph variant={['textSmall', 'red']}>{errors.password.message}</Paragraph>}
                   </>
@@ -103,10 +98,12 @@ const Auth = () => {
                   render={({ field: { onChange, onBlur, value } }) => (
                      <>
                         <TextInput
-                           style={styles.input}
+                           style={globalStyles.input}
                            onBlur={onBlur}
                            onChangeText={onChange}
                            value={value}
+                           placeholder='Confirm password'
+                           cursorColor={theme.COLORS.grey}
                         />
                         {errors.passwordConfirm && <Paragraph variant={['textSmall', 'red']}>{errors.passwordConfirm.message}</Paragraph>}
                      </>
@@ -118,19 +115,20 @@ const Auth = () => {
          <CustomButton
             handleOnPress={handleSubmit(onSubmit(isLogIn))}
             buttonVariant='auth'
-            textVariant={['textMedium', 'white']}
+            textVariant={['textMedium', 'white', 'center', 'semiBold']}
          >
-            {isLogIn ? 'Login' : 'Register'}
+            {isLogIn ? 'Log In' : 'Register'}
          </CustomButton>
-         {isLogIn && (
+         <View style={styles.wannaAuthWrapper}>
+            <Paragraph variant={['textSmall', 'black']}>{isLogIn ? "Don't have an account?" : 'Already have an account?'}</Paragraph>
             <CustomButton
                handleOnPress={handleSetIsLogIn}
                buttonVariant='wannaAuth'
-               textVariant={['textMedium', 'white']}
+               textVariant={['textSmall', 'blue', 'semiBold']}
             >
-               Signup
+               {isLogIn ? 'Sign Up' : 'Log In'}
             </CustomButton>
-         )}
+         </View>
       </View>
    )
 }

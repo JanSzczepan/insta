@@ -1,13 +1,17 @@
 import { StyleSheet } from 'react-native'
+import theme from '../../constants/theme'
 
 const styles = StyleSheet.create({
    container: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center',
+      paddingHorizontal: theme.SPACING.large,
    },
-   input: {
-      padding: 5,
+   wannaAuthWrapper: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      marginTop: theme.SPACING.medium,
    },
 })
 

@@ -18,10 +18,8 @@ const AuthContextProvider = ({ children }) => {
    useEffect(() => {
       const getUser = async () => {
          const user = await getFromSecureStorage(USER_PROFILE)
-
          if (user) {
             const parsedUser = JSON.parse(user)
-
             dispatch({
                type: SIGN_IN,
                payload: parsedUser.user,

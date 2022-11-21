@@ -2,6 +2,8 @@ export const COLORS = {
    black: '#000000',
    white: '#ffffff',
    grey: '#acacac',
+   mediumgrey: '#cacaca',
+   lightgrey: '#FAFAFA',
    blue: '#458eff',
    red: '#ff0000',
 }
@@ -12,7 +14,7 @@ export const SIZES = {
    large: 20,
    xlarge: 26,
    xxlarge: 32,
-   xxxlarge: 40,
+   xxxlarge: 50,
    giant: 60,
 }
 
@@ -33,6 +35,7 @@ export const FONTS = {
 }
 
 export const RADIUS = {
+   small: 5,
    standard: 10,
 }
 

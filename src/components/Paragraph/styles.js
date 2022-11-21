@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
    textGiant: {
       fontSize: theme.SIZES.giant,
    },
+   textXXXLarge: {
+      fontSize: theme.SIZES.xxxlarge,
+   },
    textLarge: {
       fontSize: theme.SIZES.large,
    },
@@ -34,6 +37,9 @@ const styles = StyleSheet.create({
    },
    red: {
       color: theme.COLORS.red,
+   },
+   blue: {
+      color: theme.COLORS.blue,
    },
    center: {
       textAlign: 'center',

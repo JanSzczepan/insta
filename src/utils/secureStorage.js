@@ -15,7 +15,8 @@ export const getFromSecureStorage = async (key) => {
       if (result) {
          return result
       } else {
-         throw new Error(`Can't get ${key} from secureStorage`)
+         console.log(`Can't get ${key} from secureStorage`)
+         return null
       }
    } catch (error) {
       console.log(error)

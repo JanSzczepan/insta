@@ -106,7 +106,7 @@ const MainApp = () => {
    const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
 
    ////////////////////////
-   if (!loaded || !userData) return null
+   if (!loaded) return null
 
    return (
       <NavigationContainer theme={nativeTheme}>
