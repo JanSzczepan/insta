@@ -86,6 +86,7 @@ const Auth = () => {
                         value={value}
                         placeholder='Password'
                         cursorColor={theme.COLORS.grey}
+                        secureTextEntry
                      />
                      {errors.password && <Paragraph variant={['textSmall', 'red']}>{errors.password.message}</Paragraph>}
                   </>
@@ -104,6 +105,7 @@ const Auth = () => {
                            value={value}
                            placeholder='Confirm password'
                            cursorColor={theme.COLORS.grey}
+                           secureTextEntry
                         />
                         {errors.passwordConfirm && <Paragraph variant={['textSmall', 'red']}>{errors.passwordConfirm.message}</Paragraph>}
                      </>
