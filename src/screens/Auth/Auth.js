@@ -40,9 +40,13 @@ const Auth = () => {
 
    const handleSetIsLogIn = () => setIsLogIn((prevState) => !prevState)
 
-   const onSubmit = useCallback(({ email, password }) => {
-      isLogIn ? login(email, password) : signup(email, password)
-   }, [])
+   const onSubmit = useCallback(
+      (isLogIn) =>
+         ({ email, password }) => {
+            isLogIn ? login(email, password) : signup(email, password)
+         },
+      []
+   )
 
    return (
       <View style={styles.container}>
@@ -112,7 +116,7 @@ const Auth = () => {
             )}
          </View>
          <CustomButton
-            handleOnPress={handleSubmit(onSubmit)}
+            handleOnPress={handleSubmit(onSubmit(isLogIn))}
             buttonVariant='auth'
             textVariant={['textMedium', 'white']}
          >

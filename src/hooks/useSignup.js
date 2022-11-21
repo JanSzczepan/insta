@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { SIGN_IN } from '../constants/actions'
 import { USER_PROFILE } from '../constants/secureStorageKeys'
 import { supabase } from '../supabase/supabaseClient'
+import { saveToSecureStorage } from '../utils/secureStorage'
 import { useAuthContext } from './useAuthContext'
 
 const useSignup = () => {
@@ -14,7 +15,7 @@ const useSignup = () => {
       setError(false)
 
       try {
-         console.log(email, password)
+         console.log('signup', email, password)
          const { data, error } = await supabase.auth.signUp({ email, password })
 
          //////////////////////////
