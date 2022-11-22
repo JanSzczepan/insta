@@ -5,9 +5,10 @@ import { Post } from '../../components'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
+import usePosts from '../../hooks/usePosts'
 
 const Home = () => {
-   const { data } = useQuery({ queryKey: ['posts'], queryFn: getPosts })
+   const { posts } = usePosts()
 
    const { userState } = useAuthContext()
    const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
@@ -27,7 +28,7 @@ const Home = () => {
    return (
       <View>
          <FlatList
-            data={data?.data}
+            data={posts}
             renderItem={({ item }) => <Post post={item} />}
             keyExtractor={(item) => item.id}
          />

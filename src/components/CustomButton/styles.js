@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
       paddingVertical: 10,
       backgroundColor: theme.COLORS.black,
    },
+   icon: {
+      marginRight: theme.SPACING.large,
+   },
    deletePost: {},
 })
 

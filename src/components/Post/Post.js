@@ -1,21 +1,34 @@
 import { useNavigation } from '@react-navigation/native'
 import { Pressable, View } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import Paragraph from '../Paragraph/Paragraph'
 import CustomImage from '../CustomImage/CustomImage'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import styles from './styles'
 import theme from '../../constants/theme'
+import useCreator from '../../hooks/useCreator'
+import useLikes from '../../hooks/useLikes'
+import CustomButton from '../CustomButton/CustomButton'
 
 const Post = ({ post }) => {
-   const { description, id } = post
+   const { description, id, creator_uuid } = post
 
    const { navigate } = useNavigation()
 
-   const { user } = useUserInfoContext()
+   const { creator, isLoading } = useCreator(creator_uuid)
+   const { likes, isLiked, isLoading: isLikeLoading, likePost } = useLikes(id, creator_uuid)
 
-   const { first_name, last_name } = user
-   // console.log('ssssssssssss', post)
+   if (isLoading) return null
+
+   const { first_name, last_name } = creator
+
+   const returnLikes = (likes) => {
+      if (!likes) return null
+      const text = likes.length === 1 ? `${likes.length} like` : `${likes.length} likes`
+      return text
+   }
+
    return (
       <View style={styles.container}>
          <View style={styles.nameContainer}>
@@ -40,21 +53,44 @@ const Post = ({ post }) => {
          </Pressable>
          <View style={styles.contentWrapper}>
             <View style={styles.iconsContainer}>
-               <FontAwesome5
-                  name='heart'
-                  size={theme.SIZES.xlarge}
-                  color={theme.COLORS.black}
-                  style={styles.icon}
-               />
-               <FontAwesome5
-                  name='comment'
-                  size={theme.SIZES.xlarge}
-                  color={theme.COLORS.black}
-                  style={styles.icon}
-               />
+               {isLikeLoading ? (
+                  <AntDesign
+                     name='heart'
+                     size={theme.SIZES.xlarge}
+                     color={theme.COLORS.red}
+                     style={styles.icon}
+                  />
+               ) : (
+                  <CustomButton
+                     handleOnPress={() => likePost(id, creator_uuid)}
+                     buttonVariant='icon'
+                     disabled={isLiked === undefined}
+                  >
+                     {isLiked ? (
+                        <AntDesign
+                           name='heart'
+                           size={theme.SIZES.xlarge}
+                           color={theme.COLORS.red}
+                        />
+                     ) : (
+                        <AntDesign
+                           name='hearto'
+                           size={theme.SIZES.xlarge}
+                           color={theme.COLORS.black}
+                        />
+                     )}
+                  </CustomButton>
+               )}
+               <CustomButton buttonVariant='icon'>
+                  <FontAwesome5
+                     name='comment'
+                     size={theme.SIZES.xlarge}
+                     color={theme.COLORS.black}
+                  />
+               </CustomButton>
             </View>
             <View style={styles.likesContainer}>
-               <Paragraph variant={['black', 'textMedium', 'semiBold']}>156 likes</Paragraph>
+               <Paragraph variant={['black', 'textMedium', 'semiBold']}>{returnLikes(likes)}</Paragraph>
             </View>
             <View style={styles.commentContainer}>
                <View style={styles.commentNameContainer}>
@@ -62,7 +98,7 @@ const Post = ({ post }) => {
                      {first_name} {last_name}
                   </Paragraph>
                </View>
-               <Paragraph variant={['black', 'textSmall']}>Koty to fajne zwierzaki</Paragraph>
+               <Paragraph variant={['black', 'textSmall']}>{description}</Paragraph>
             </View>
          </View>
       </View>

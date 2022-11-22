@@ -8,6 +8,7 @@ import styles from './styles'
 import { postPost } from '../../api'
 import { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
+import { POSTS, POSTS_KEY } from '../../constants/queryKeys'
 
 const CreatePost = () => {
    const validation = yup.object().shape({
@@ -36,7 +37,7 @@ const CreatePost = () => {
       mutationFn: postPost,
       onSuccess: () => {
          reset()
-         queryClient.invalidateQueries({ queryKey: ['posts'] })
+         queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
          navigate('Home')
       },
    })

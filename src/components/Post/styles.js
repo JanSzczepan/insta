@@ -22,9 +22,6 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       marginBottom: theme.SPACING.small,
    },
-   icon: {
-      marginRight: theme.SPACING.large,
-   },
    likesContainer: {
       marginBottom: theme.SPACING.small,
    },
@@ -37,6 +34,9 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       alignContent: 'center',
       marginRight: theme.SPACING.small,
+   },
+   icon: {
+      marginRight: theme.SPACING.large,
    },
 })
 
