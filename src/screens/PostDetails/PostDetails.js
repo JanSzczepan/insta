@@ -1,11 +1,13 @@
-import { Text, View } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import styles from './styles'
 import { deletePost, getPost } from '../../api'
-import { CustomButton } from '../../components'
+import { AddComment, Comment, CustomButton, Post } from '../../components'
 import { useNavigation } from '@react-navigation/native'
 import { useCallback } from 'react'
+import useComment from '../../hooks/useComment'
+import useCreator from '../../hooks/useCreator'
 
 const PostDetails = ({ route }) => {
    const { id } = route.params
@@ -13,10 +15,13 @@ const PostDetails = ({ route }) => {
       userState: { user },
    } = useAuthContext()
 
+   const { comments } = useComment(id)
+   // const { user } = useCreator(comments)
+
    const { navigate } = useNavigation()
    const queryClient = useQueryClient()
 
-   const { data } = useQuery({ queryKey: ['post'], queryFn: () => getPost(id) })
+   const { data } = useQuery({ queryKey: ['post', id], queryFn: () => getPost(id) })
 
    const mutation = useMutation({
       mutationFn: deletePost,
@@ -30,20 +35,39 @@ const PostDetails = ({ route }) => {
       mutation.mutate(id)
    }, [])
 
+   if (!data) return null
+
    return (
-      <View style={styles.container}>
-         <Text>{id}</Text>
-         {data?.data?.creator_uuid === user?.id && (
-            <CustomButton
-               handleOnPress={handleDelete}
-               buttonVariant='deletePost'
-               textVariant={['textMedium', 'red']}
-            >
-               Delete
-            </CustomButton>
-         )}
-      </View>
+      <>
+         <Post post={data.data} />
+         <View style={styles.divider} />
+         <View style={styles.contentWrapper}>
+            {Boolean(comments?.length) && (
+               <FlatList
+                  data={comments}
+                  renderItem={({ item }) => <Comment comment={item} />}
+                  keyExtractor={(item) => item.id}
+               />
+            )}
+         </View>
+         <AddComment postId={id} />
+      </>
    )
+
+   // return (
+   //    <View style={styles.container}>
+   //       <Text>{id}</Text>
+   //       {data?.data?.creator_uuid === user?.id && (
+   //          <CustomButton
+   //             handleOnPress={handleDelete}
+   //             buttonVariant='deletePost'
+   //             textVariant={['textMedium', 'red']}
+   //          >
+   //             Delete
+   //          </CustomButton>
+   //       )}
+   //    </View>
+   // )
 }
 
 export default PostDetails

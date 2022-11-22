@@ -14,7 +14,7 @@ const useLikes = (postId, creatorId) => {
 
    useEffect(() => {
       checkIsLiked(postId, creatorId)
-   }, [])
+   }, [likes])
 
    const mutationAdd = useMutation({
       mutationFn: createLike,
@@ -33,7 +33,6 @@ const useLikes = (postId, creatorId) => {
    const checkIsLiked = async (postId, creatorId) => {
       const data = await checkLike({ postId, creatorId })
       const index = data?.data?.findIndex((item) => item.creator_uuid === creatorId)
-      console.log('index', index)
       const isPostLiked = !Boolean(index == -1)
       setIsLiked(isPostLiked)
 
@@ -62,7 +61,7 @@ const useLikes = (postId, creatorId) => {
       setIsLoading(false)
    }
 
-   return { likes, isLiked, checkIsLiked, addLike, removeLike, likePost, isLoading, isError, error }
+   return { likes, isLiked, checkIsLiked, addLike, removeLike, likePost, isLoading, isQueryLoading, isError, error }
 }
 
 export default useLikes

@@ -124,6 +124,7 @@ const MainApp = () => {
                         <Stack.Screen
                            name='PostDetails'
                            component={PostDetails}
+                           options={{ headerShown: false }}
                         ></Stack.Screen>
                      </>
                   ) : (

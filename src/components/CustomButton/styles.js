@@ -29,6 +29,10 @@ const styles = StyleSheet.create({
    icon: {
       marginRight: theme.SPACING.large,
    },
+   addComment: {
+      paddingVertical: theme.SPACING.medium,
+      paddingHorizontal: theme.SPACING.medium,
+   },
    deletePost: {},
 })
 

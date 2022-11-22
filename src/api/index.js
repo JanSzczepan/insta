@@ -59,3 +59,21 @@ export const deleteLike = async (id) => {
    console.log(`Like with id ${id} deleted`, response)
    return response
 }
+
+export const getComments = async (id) => {
+   const response = await supabase.from('comments').select('*').eq('post_id', id)
+   console.log(`Comment from post ${id} fetched`, response)
+   return response
+}
+
+export const createComment = async ({ comment, postId }) => {
+   const response = await supabase.from('comments').insert({ body: comment, post_id: postId }).limit(1).single()
+   console.log(`Comment ${comment} created`, response)
+   return response
+}
+
+export const deleteComment = async (id) => {
+   const response = await supabase.from('comments').delete().eq('id', id)
+   console.log(`Comment ${id} deleted`, response)
+   return
+}

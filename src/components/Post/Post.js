@@ -4,12 +4,12 @@ import { FontAwesome5 } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import Paragraph from '../Paragraph/Paragraph'
 import CustomImage from '../CustomImage/CustomImage'
-import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import styles from './styles'
 import theme from '../../constants/theme'
 import useCreator from '../../hooks/useCreator'
 import useLikes from '../../hooks/useLikes'
 import CustomButton from '../CustomButton/CustomButton'
+import Comment from '../Comment/Comment'
 
 const Post = ({ post }) => {
    const { description, id, creator_uuid } = post
@@ -29,6 +29,10 @@ const Post = ({ post }) => {
       return text
    }
 
+   const navigateToPost = (id, isComment) => {
+      navigate('PostDetails', { id, isComment })
+   }
+
    return (
       <View style={styles.container}>
          <View style={styles.nameContainer}>
@@ -41,7 +45,7 @@ const Post = ({ post }) => {
          </View>
          <Pressable
             onPress={() => {
-               navigate('PostDetails', { id })
+               navigateToPost(id, false)
             }}
          >
             <View style={styles.imageContainer}>
@@ -81,7 +85,10 @@ const Post = ({ post }) => {
                      )}
                   </CustomButton>
                )}
-               <CustomButton buttonVariant='icon'>
+               <CustomButton
+                  handleOnPress={() => navigateToPost(id, true)}
+                  buttonVariant='icon'
+               >
                   <FontAwesome5
                      name='comment'
                      size={theme.SIZES.xlarge}
