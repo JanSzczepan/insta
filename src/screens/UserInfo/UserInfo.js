@@ -9,6 +9,7 @@ import styles from './styles'
 import UserPlaceholder from '../../../assets/images/UserPlaceholder.png'
 import { updateUserInfo } from '../../api'
 import { useAuthContext } from '../../hooks/useAuthContext'
+import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 
 const UserInfo = () => {
    const validation = yup.object().shape({
@@ -29,22 +30,21 @@ const UserInfo = () => {
       },
    })
 
-   const {
-      userState: { user },
-   } = useAuthContext()
+   const { user } = useUserInfoContext()
 
    const queryClient = useQueryClient()
 
    const mutation = useMutation({
       mutationFn: updateUserInfo,
       onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ['users'] })
+         console.log(user?.id)
+         queryClient.invalidateQueries(['users', user?.id])
       },
    })
 
    const onSubmit = useCallback(({ name, surname, image }) => {
       const image_url = image ? Image.resolveAssetSource(image).uri : Image.resolveAssetSource(UserPlaceholder).uri
-      const id = user?.id
+      const { id } = user
       mutation.mutate({ id, first_name: name, last_name: surname, img_url: image_url })
    }, [])
 
