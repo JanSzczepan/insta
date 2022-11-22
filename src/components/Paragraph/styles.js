@@ -26,6 +26,9 @@ const styles = StyleSheet.create({
    textSmall: {
       fontSize: theme.SIZES.small,
    },
+   textXSmall: {
+      fontSize: theme.SIZES.xsmall,
+   },
    white: {
       color: theme.COLORS.white,
    },
