@@ -7,9 +7,10 @@ const styles = StyleSheet.create({
       aspectRatio: 1,
    },
    user: {
+      maxWidth: 350,
+      maxHeight: 350,
       resizeMode: 'contain',
-      width: 100,
-      height: 100,
+      flex: 1,
       aspectRatio: 1,
    },
 })

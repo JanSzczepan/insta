@@ -8,8 +8,9 @@ import { CustomButton, CustomImage, Paragraph } from '../../components'
 import styles from './styles'
 import UserPlaceholder from '../../../assets/images/UserPlaceholder.png'
 import { updateUserInfo } from '../../api'
-import { useAuthContext } from '../../hooks/useAuthContext'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
+import globalStyles from '../../constants/globalStyles'
+import theme from '../../constants/theme'
 
 const UserInfo = () => {
    const validation = yup.object().shape({
@@ -49,8 +50,7 @@ const UserInfo = () => {
    }, [])
 
    return (
-      <View>
-         <Text>UserInfo</Text>
+      <View style={styles.container}>
          <View style={styles.imageContainer}>
             <CustomImage variant='user' />
          </View>
@@ -59,11 +59,12 @@ const UserInfo = () => {
             render={({ field: { onChange, onBlur, value } }) => (
                <>
                   <TextInput
-                     style={styles.input}
+                     style={globalStyles.input}
                      onBlur={onBlur}
                      onChangeText={onChange}
                      value={value}
                      placeholder='Type your name'
+                     cursorColor={theme.COLORS.grey}
                   />
                   {errors.name && <Paragraph variant={['textSmall', 'red']}>{errors.name.message}</Paragraph>}
                </>
@@ -75,11 +76,12 @@ const UserInfo = () => {
             render={({ field: { onChange, onBlur, value } }) => (
                <>
                   <TextInput
-                     style={styles.input}
+                     style={globalStyles.input}
                      onBlur={onBlur}
                      onChangeText={onChange}
                      value={value}
                      placeholder='Type your surname'
+                     cursorColor={theme.COLORS.grey}
                   />
                   {errors.surname && <Paragraph variant={['textSmall', 'red']}>{errors.surname.message}</Paragraph>}
                </>
@@ -88,10 +90,10 @@ const UserInfo = () => {
          />
          <CustomButton
             handleOnPress={handleSubmit(onSubmit)}
-            buttonVariant='post'
-            textVariant={['medium', 'white']}
+            buttonVariant='auth'
+            textVariant={['medium', 'white', 'center', 'semiBold']}
          >
-            Opublikuj
+            Save
          </CustomButton>
       </View>
    )
