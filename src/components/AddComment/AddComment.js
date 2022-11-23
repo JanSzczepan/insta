@@ -5,7 +5,7 @@ import useComment from '../../hooks/useComment'
 import CustomButton from '../CustomButton/CustomButton'
 import styles from './styles'
 
-const AddComment = ({ postId }) => {
+const AddComment = ({ postId, isComment }) => {
    const { addComment } = useComment(postId)
 
    const [comment, setComment] = useState('')
@@ -26,6 +26,7 @@ const AddComment = ({ postId }) => {
             onChangeText={(text) => setComment(text)}
             cursorColor={theme.COLORS.grey}
             placeholder='Comment...'
+            autoFocus={isComment}
          />
          <CustomButton
             handleOnPress={() => handleOnPress(comment, postId)}

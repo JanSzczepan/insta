@@ -10,7 +10,8 @@ import useComment from '../../hooks/useComment'
 import useCreator from '../../hooks/useCreator'
 
 const PostDetails = ({ route }) => {
-   const { id } = route.params
+   const { id, isComment } = route.params
+
    const {
       userState: { user },
    } = useAuthContext()
@@ -50,7 +51,10 @@ const PostDetails = ({ route }) => {
                />
             )}
          </View>
-         <AddComment postId={id} />
+         <AddComment
+            postId={id}
+            isComment={isComment}
+         />
       </>
    )
 
