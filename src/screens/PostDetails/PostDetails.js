@@ -69,6 +69,7 @@ const PostDetails = ({ route }) => {
             postId={id}
             isComment={isComment}
             commentRef={commentRef}
+            unFocusComment={unFocusComment}
          />
       </>
    )

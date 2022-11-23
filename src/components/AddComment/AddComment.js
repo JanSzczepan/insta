@@ -5,7 +5,7 @@ import useComment from '../../hooks/useComment'
 import CustomButton from '../CustomButton/CustomButton'
 import styles from './styles'
 
-const AddComment = ({ postId, isComment, commentRef }) => {
+const AddComment = ({ postId, isComment, commentRef, unFocusComment = () => {} }) => {
    const { addComment } = useComment(postId)
 
    const [comment, setComment] = useState('')
@@ -15,6 +15,7 @@ const AddComment = ({ postId, isComment, commentRef }) => {
 
       addComment(comment, postId)
       setComment('')
+      unFocusComment()
    }
 
    return (
