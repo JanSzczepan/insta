@@ -61,22 +61,6 @@ const CreatePost = () => {
             </View>
             <Paragraph variant={['textMedium', 'black']}>{description}</Paragraph>
             <View>
-               {/* <Controller
-                  control={control}
-                  render={({ field: { onChange, onBlur, value } }) => (
-                     <>
-                        <TextInput
-                           style={styles.input}
-                           onBlur={onBlur}
-                           onChangeText={onChange}
-                           value={value}
-                           placeholder='Type your title'
-                        />
-                        {errors.title && <Paragraph variant={['textSmall', 'red']}>{errors.title.message}</Paragraph>}
-                     </>
-                  )}
-                  name={'title'}
-               /> */}
                <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
