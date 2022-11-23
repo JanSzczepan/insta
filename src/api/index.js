@@ -18,7 +18,7 @@ export const getUserPosts = async (id) => {
    return response
 }
 
-export const postPost = async ({ title, description, image_url }) => {
+export const postPost = async ({ description, image_url }) => {
    const response = await supabase.from('posts').insert({ description, image_url }).limit(1).single()
    console.log('Posts posted', response)
    return response

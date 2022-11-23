@@ -8,11 +8,10 @@ import styles from './styles'
 import { postPost } from '../../api'
 import { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { POSTS, POSTS_KEY } from '../../constants/queryKeys'
+import { POSTS_KEY } from '../../constants/queryKeys'
 
 const CreatePost = () => {
    const validation = yup.object().shape({
-      title: yup.string().required('Please type post title.').max(20, 'Your title is to long'),
       description: yup.string().required('Please type post description.'),
    })
 
@@ -24,7 +23,6 @@ const CreatePost = () => {
    } = useForm({
       resolver: yupResolver(validation),
       defaultValues: {
-         title: '',
          description: '',
          image: null,
       },
@@ -42,9 +40,9 @@ const CreatePost = () => {
       },
    })
 
-   const onSubmit = useCallback(({ title, description, image }) => {
+   const onSubmit = useCallback(({ description, image }) => {
       const image_url = image ? Image.resolveAssetSource(image).uri : null
-      mutation.mutate({ title, description, image_url })
+      mutation.mutate({ description, image_url })
    }, [])
 
    const returnValue = (control, name) => {
@@ -53,19 +51,17 @@ const CreatePost = () => {
       return value
    }
 
-   const title = returnValue(control, 'title')
    const description = returnValue(control, 'description')
 
    return (
       <>
          <View style={styles.container}>
-            <Paragraph variant={['textMedium', 'black']}>{title}</Paragraph>
             <View style={styles.imageContainer}>
                <CustomImage variant='fullWidth' />
             </View>
             <Paragraph variant={['textMedium', 'black']}>{description}</Paragraph>
             <View>
-               <Controller
+               {/* <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
                      <>
@@ -80,7 +76,7 @@ const CreatePost = () => {
                      </>
                   )}
                   name={'title'}
-               />
+               /> */}
                <Controller
                   control={control}
                   render={({ field: { onChange, onBlur, value } }) => (
