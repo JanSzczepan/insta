@@ -14,13 +14,12 @@ const Profile = () => {
    const [isGrid, setIsGrid] = useState(true)
    const { user, isLoading: isUserLoading } = useUserInfoContext()
 
-   if (isUserLoading) return
-
    const { posts, isLoading } = useUserPosts(user?.id)
 
-   if (isLoading) return
-
    const { logout } = useLogout()
+
+   if (isUserLoading) return null
+   if (isLoading) return null
 
    const { first_name, last_name, email } = user
 

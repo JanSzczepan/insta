@@ -52,7 +52,7 @@ const UserInfo = () => {
    return (
       <View style={styles.container}>
          <View style={styles.imageContainer}>
-            <CustomImage variant='user' />
+            <CustomImage variant='userInfo' />
          </View>
          <Controller
             control={control}

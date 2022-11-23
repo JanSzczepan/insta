@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
       aspectRatio: 1.5,
       marginVertical: 0,
    },
-   user: {
+   userInfo: {
       maxWidth: 350,
       maxHeight: 350,
       resizeMode: 'contain',

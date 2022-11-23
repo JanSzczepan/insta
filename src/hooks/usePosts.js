@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { getPosts } from '../api'
 import { POSTS_KEY } from '../constants/queryKeys'
 
-const usePosts = () => {
-   const { data, isLoading, isError, error } = useQuery({ queryKey: [POSTS_KEY], queryFn: getPosts })
+const usePosts = (userId) => {
+   const { data, isLoading, isError, error } = useQuery({ queryKey: [POSTS_KEY, userId], queryFn: getPosts })
 
    const posts = data ? [...data.data].reverse() : null
 

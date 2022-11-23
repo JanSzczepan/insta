@@ -1,27 +1,40 @@
 import { FlatList, View } from 'react-native'
-import { useQuery } from '@tanstack/react-query'
-import { getPosts, getUserData } from '../../api'
 import { Post } from '../../components'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
 import usePosts from '../../hooks/usePosts'
 
 const Home = () => {
-   const { posts } = usePosts()
-
-   const { userState } = useAuthContext()
-   const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
+   const { user } = useUserInfoContext()
 
    const { navigate } = useNavigation()
 
    useEffect(() => {
-      if (userData && userState.user) {
-         if (!userData.data.first_name || !userData.data.last_name) {
+      if (user) {
+         if (!user.first_name || !user.last_name) {
             navigate('UserInfo')
          }
       }
-   }, [userData, navigate])
+   }, [user, navigate])
+
+   if (!user) return null
+
+   const { posts } = usePosts(user.id)
+
+   if (!posts) return null
+   // const { userState } = useAuthContext()
+   // const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
+
+   // const { navigate } = useNavigation()
+
+   // useEffect(() => {
+   //    if (userData && userState.user) {
+   //       if (!userData.data.first_name || !userData.data.last_name) {
+   //          navigate('UserInfo')
+   //       }
+   //    }
+   // }, [userData, navigate])
 
    // if (!userData || !userState.user) return null
 
