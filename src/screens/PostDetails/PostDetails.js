@@ -5,12 +5,13 @@ import styles from './styles'
 import { deletePost, getPost } from '../../api'
 import { AddComment, Comment, CustomButton, Post } from '../../components'
 import { useNavigation } from '@react-navigation/native'
-import { useCallback } from 'react'
+import { useCallback, useRef } from 'react'
 import useComment from '../../hooks/useComment'
 import useCreator from '../../hooks/useCreator'
 
 const PostDetails = ({ route }) => {
    const { id, isComment } = route.params
+   const commentRef = useRef(null)
 
    const {
       userState: { user },
@@ -38,9 +39,22 @@ const PostDetails = ({ route }) => {
 
    if (!data) return null
 
+   const focusComment = () => {
+      commentRef.current.focus()
+   }
+
+   const unFocusComment = () => {
+      commentRef.current.blur()
+   }
+
    return (
       <>
-         <Post post={data.data} />
+         <Post
+            post={data.data}
+            isDetail={true}
+            focusComment={focusComment}
+            unFocusComment={unFocusComment}
+         />
          <View style={styles.divider} />
          <View style={styles.contentWrapper}>
             {Boolean(comments?.length) && (
@@ -54,6 +68,7 @@ const PostDetails = ({ route }) => {
          <AddComment
             postId={id}
             isComment={isComment}
+            commentRef={commentRef}
          />
       </>
    )

@@ -11,7 +11,7 @@ import useLikes from '../../hooks/useLikes'
 import CustomButton from '../CustomButton/CustomButton'
 import Comment from '../Comment/Comment'
 
-const Post = ({ post }) => {
+const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment = () => {} }) => {
    const { description, id, creator_uuid } = post
 
    const { navigate } = useNavigation()
@@ -28,14 +28,21 @@ const Post = ({ post }) => {
       const text = likes.length === 1 ? `${likes.length} like` : `${likes.length} likes`
       return text
    }
+   console.log('wooooooooooo')
+   const navigateToPost = (id, isComment, isDetail) => {
+      if (isDetail && isComment) focusComment()
 
-   const navigateToPost = (id, isComment) => {
+      if (isDetail) return
+
       navigate('PostDetails', { id, isComment })
    }
 
    return (
       <TouchableWithoutFeedback
-         onPress={Keyboard.dismiss}
+         onPress={() => {
+            Keyboard.dismiss()
+            unFocusComment()
+         }}
          accessible={false}
       >
          <View style={styles.container}>
@@ -49,7 +56,7 @@ const Post = ({ post }) => {
             </View>
             <Pressable
                onPress={() => {
-                  navigateToPost(id, false)
+                  navigateToPost(id, false, isDetail)
                }}
             >
                <View style={styles.imageContainer}>
@@ -90,7 +97,7 @@ const Post = ({ post }) => {
                      </CustomButton>
                   )}
                   <CustomButton
-                     handleOnPress={() => navigateToPost(id, true)}
+                     handleOnPress={() => navigateToPost(id, true, isDetail)}
                      buttonVariant='icon'
                   >
                      <FontAwesome5

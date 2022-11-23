@@ -5,7 +5,7 @@ import useComment from '../../hooks/useComment'
 import CustomButton from '../CustomButton/CustomButton'
 import styles from './styles'
 
-const AddComment = ({ postId, isComment }) => {
+const AddComment = ({ postId, isComment, commentRef }) => {
    const { addComment } = useComment(postId)
 
    const [comment, setComment] = useState('')
@@ -21,6 +21,7 @@ const AddComment = ({ postId, isComment }) => {
       <View style={styles.container}>
          <View></View>
          <TextInput
+            ref={commentRef}
             style={styles.commentInput}
             value={comment}
             onChangeText={(text) => setComment(text)}
