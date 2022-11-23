@@ -1,28 +1,92 @@
-import { Text, View } from 'react-native'
-import { CustomButton } from '../../components'
-import { useAuthContext } from '../../hooks/useAuthContext'
+import { FlatList, View } from 'react-native'
+import { CustomButton, CustomImage, Paragraph, Post } from '../../components'
+import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import useLogout from '../../hooks/useLogout'
+import useUserPosts from '../../hooks/useUserPosts'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { MaterialIcons } from '@expo/vector-icons'
+import MiniPost from '../../components/MiniPost/MiniPost'
+import styles from './styles'
+import theme from '../../constants/theme'
+import { useState } from 'react'
 
 const Profile = () => {
-   const {
-      userState: { user },
-   } = useAuthContext()
+   const [isGrid, setIsGrid] = useState(true)
+   const { user, isLoading: isUserLoading } = useUserInfoContext()
+
+   if (isUserLoading) return
+
+   const { posts, isLoading } = useUserPosts(user?.id)
+
+   if (isLoading) return
 
    const { logout } = useLogout()
 
+   const { first_name, last_name, email } = user
+
    return (
-      <View>
-         <View>
-            <Text>{user?.email[0]}</Text>
+      <SafeAreaView style={styles.container}>
+         <View style={styles.userContainer}>
+            <View style={styles.userNameContainer}>
+               <CustomImage variant='user' />
+               <Paragraph variant={['textMedium', 'black', 'semiBold']}>
+                  {first_name} {last_name}
+               </Paragraph>
+            </View>
+            <View>
+               <View style={styles.textContainer}>
+                  <Paragraph variant={['textSmall', 'black']}>{email}</Paragraph>
+               </View>
+               <View style={styles.textContainer}>
+                  <Paragraph variant={['textSmall', 'black']}>
+                     {posts.length} Post{posts.length !== 1 && 's'}
+                  </Paragraph>
+               </View>
+               <CustomButton
+                  handleOnPress={logout}
+                  buttonVariant='logout'
+                  textVariant={['textMedium', 'white']}
+               >
+                  <MaterialIcons
+                     name='logout'
+                     size={theme.SIZES.large}
+                     color={theme.COLORS.black}
+                  />
+               </CustomButton>
+            </View>
          </View>
-         <CustomButton
-            handleOnPress={logout}
-            buttonVariant='auth'
-            textVariant={['textMedium', 'white']}
-         >
-            Logout
-         </CustomButton>
-      </View>
+         <View style={styles.buttonsContainer}>
+            <CustomButton
+               handleOnPress={() => setIsGrid(true)}
+               buttonVariant='filter'
+            >
+               <MaterialIcons
+                  name='grid-on'
+                  size={theme.SIZES.xlarge}
+                  color={isGrid ? theme.COLORS.black : theme.COLORS.mediumgrey}
+               />
+            </CustomButton>
+            <CustomButton
+               handleOnPress={() => setIsGrid(false)}
+               buttonVariant='filter'
+            >
+               <MaterialIcons
+                  name='format-list-bulleted'
+                  size={theme.SIZES.xlarge}
+                  color={!isGrid ? theme.COLORS.black : theme.COLORS.mediumgrey}
+               />
+            </CustomButton>
+         </View>
+         <View style={styles.postsContainer}>
+            <FlatList
+               data={posts}
+               renderItem={({ item }) => (isGrid ? <MiniPost post={item} /> : <Post post={item} />)}
+               keyExtractor={(item) => item.id}
+               numColumns={isGrid ? 3 : 1}
+               key={isGrid}
+            />
+         </View>
+      </SafeAreaView>
    )
 }
 

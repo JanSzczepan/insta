@@ -26,7 +26,7 @@ const UserInfoContextProvider = ({ children }) => {
            }
          : null
 
-   return <UserInfoContext.Provider value={{ user }}>{children}</UserInfoContext.Provider>
+   return <UserInfoContext.Provider value={{ user, isLoading }}>{children}</UserInfoContext.Provider>
 }
 
 export default UserInfoContextProvider

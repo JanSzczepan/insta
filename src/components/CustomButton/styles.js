@@ -33,6 +33,19 @@ const styles = StyleSheet.create({
       paddingVertical: theme.SPACING.medium,
       paddingHorizontal: theme.SPACING.medium,
    },
+   logout: {
+      alignSelf: 'flex-start',
+      paddingVertical: theme.SPACING.small,
+      paddingHorizontal: theme.SPACING.large,
+      backgroundColor: theme.COLORS.lightgrey,
+      color: theme.COLORS.black,
+      borderRadius: theme.RADIUS.small,
+   },
+   filter: {
+      width: '50%',
+      justifyContent: 'center',
+      alignItems: 'center',
+   },
    deletePost: {},
 })
 

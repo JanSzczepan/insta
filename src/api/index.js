@@ -7,8 +7,14 @@ export const getPosts = async () => {
 }
 
 export const getPost = async (id) => {
-   const response = supabase.from('posts').select('id, creator_uuid, created_at, description, image_url, comments ( body, creator_uuid, id )').eq('id', id).is('archived_at', null).single()
+   const response = await supabase.from('posts').select('id, creator_uuid, created_at, description, image_url, comments ( body, creator_uuid, id )').eq('id', id).is('archived_at', null).single()
    console.log(`Post ${id} fetched`, response)
+   return response
+}
+
+export const getUserPosts = async (id) => {
+   const response = await supabase.from('posts').select('*').eq('creator_uuid', id).is('archived_at', null)
+   console.log(`Posts for user with id ${id} fetched`, response)
    return response
 }
 

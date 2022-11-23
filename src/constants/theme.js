@@ -20,6 +20,9 @@ export const SIZES = {
 }
 
 export const SPACING = {
+   xxsmall: 1,
+   xsmall: 4,
+   xsmall: 6,
    small: 8,
    medium: 16,
    large: 24,
