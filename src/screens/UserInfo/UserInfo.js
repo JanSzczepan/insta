@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
-import { View, TextInput, Text, Image } from 'react-native'
-import { useForm, Controller, useWatch } from 'react-hook-form'
+import { View, TextInput, Image } from 'react-native'
+import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
