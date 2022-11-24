@@ -12,8 +12,8 @@ import theme from '../../constants/theme'
 
 const Auth = () => {
    const [isLogIn, setIsLogIn] = useState(true)
-   const { signup } = useSignup()
-   const { login } = useLogin()
+   const { signup, error: signupError } = useSignup()
+   const { login, error: loginError } = useLogin()
 
    const validation = yup.object().shape({
       email: yup.string().email('Your email is not valid.').required('Please enter your email.'),
@@ -125,6 +125,16 @@ const Auth = () => {
                />
             )}
          </View>
+         {isLogIn && loginError && (
+            <View style={styles.databaseErrorContainer}>
+               <Paragraph variant={['textSmall', 'red']}>{loginError.message}</Paragraph>
+            </View>
+         )}
+         {!isLogIn && signupError && (
+            <View style={styles.databaseErrorContainer}>
+               <Paragraph variant={['textSmall', 'red']}>{signupError.message}</Paragraph>
+            </View>
+         )}
          <CustomButton
             handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'

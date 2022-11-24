@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
       marginTop: -theme.SPACING.medium,
       marginBottom: theme.SPACING.medium,
    },
+   databaseErrorContainer: {
+      marginBottom: theme.SPACING.medium,
+   },
 })
 
 export default styles
