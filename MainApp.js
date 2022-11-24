@@ -9,6 +9,7 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails, UserInfo, CameraScreen } from './src/screens'
 import theme from './src/constants/theme'
 import { useUserInfoContext } from './src/hooks/useUserInfoContext'
+import { CustomButton } from './src/components'
 
 const nativeTheme = {
    ...DefaultTheme,
@@ -62,7 +63,16 @@ const MainTabs = () => {
             name='CreatePost'
             component={CreatePost}
             options={{
-               headerShown: false,
+               headerTitle: 'New Post',
+               headerRight: () => (
+                  <CustomButton buttonVariant='check'>
+                     <Feather
+                        name='check'
+                        size={theme.SIZES.xxlarge}
+                        color={theme.COLORS.blue}
+                     />
+                  </CustomButton>
+               ),
                tabBarLabel: () => null,
                tabBarIcon: () => (
                   <MaterialIcons

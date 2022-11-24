@@ -12,7 +12,7 @@ import CustomButton from '../CustomButton/CustomButton'
 import Comment from '../Comment/Comment'
 
 const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment = () => {} }) => {
-   const { description, id, creator_uuid } = post
+   const { description, id, creator_uuid, image_url } = post
 
    const { navigate } = useNavigation()
 
@@ -62,7 +62,8 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
                <View style={styles.imageContainer}>
                   <CustomImage
                      variant='fullWidth'
-                     source='https://static01.nyt.com/images/2021/12/12/magazine/12mag-LOR-1/12mag-LOR-1-superJumbo.jpg'
+                     // source='https://static01.nyt.com/images/2021/12/12/magazine/12mag-LOR-1/12mag-LOR-1-superJumbo.jpg'
+                     source={image_url}
                   />
                </View>
             </Pressable>

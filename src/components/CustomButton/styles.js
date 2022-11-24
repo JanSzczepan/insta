@@ -59,6 +59,9 @@ const styles = StyleSheet.create({
    imageIcon: {
       padding: theme.SPACING.medium,
    },
+   check: {
+      paddingHorizontal: theme.SPACING.medium,
+   },
    deletePost: {},
 })
 

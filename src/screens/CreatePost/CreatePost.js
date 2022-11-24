@@ -1,6 +1,6 @@
 import { useCallback } from 'react'
 import { View, TextInput } from 'react-native'
-import { useForm, Controller, useWatch } from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -9,6 +9,7 @@ import styles from './styles'
 import { postPost } from '../../api'
 import { useNavigation } from '@react-navigation/native'
 import { POSTS_KEY } from '../../constants/queryKeys'
+import theme from '../../constants/theme'
 
 const CreatePost = ({ route }) => {
    const photo = route.params?.photo
@@ -42,29 +43,24 @@ const CreatePost = ({ route }) => {
       },
    })
 
-   const onSubmit = useCallback(({ description, image }) => {
-      const image_url = image ? Image.resolveAssetSource(image).uri : null
-      mutation.mutate({ description, image_url })
-   }, [])
+   const onSubmit = useCallback(
+      (photo) =>
+         ({ description }) => {
+            const image_url = photo ? photo : null
+            mutation.mutate({ description, image_url })
+         },
+      []
+   )
 
-   const returnValue = (control, name) => {
-      const value = useWatch({ control, name })
-
-      return value
-   }
-
-   const description = returnValue(control, 'description')
-   console.log('yooooooooooooo')
    return (
-      <>
-         <View style={styles.container}>
-            <View style={styles.imageContainer}>
-               <CustomImage
-                  variant='fullWidth'
-                  source={photo}
-               />
-            </View>
-            <Paragraph variant={['textMedium', 'black']}>{description}</Paragraph>
+      <View style={styles.container}>
+         <View style={styles.imageContainer}>
+            <CustomImage
+               variant='fullWidth'
+               source={photo}
+            />
+         </View>
+         <View style={styles.contentContainer}>
             <View>
                <Controller
                   control={control}
@@ -76,8 +72,9 @@ const CreatePost = ({ route }) => {
                            onChangeText={onChange}
                            value={value}
                            multiline={true}
-                           numberOfLines={4}
-                           placeholder='Type your description'
+                           numberOfLines={3}
+                           placeholder='Type your description...'
+                           cursorColor={theme.COLORS.grey}
                         />
                         {errors.description && <Paragraph variant={['textSmall', 'red']}>{errors.description.message}</Paragraph>}
                      </>
@@ -87,20 +84,20 @@ const CreatePost = ({ route }) => {
             </View>
             <CustomButton
                handleOnPress={() => navigate('CameraScreen')}
-               buttonVariant='post'
-               textVariant={['medium', 'white']}
+               buttonVariant='auth'
+               textVariant={['medium', 'white', 'center', 'semiBold']}
             >
                Camera
             </CustomButton>
             <CustomButton
-               handleOnPress={handleSubmit(onSubmit)}
+               handleOnPress={handleSubmit(onSubmit(photo))}
                buttonVariant='post'
                textVariant={['medium', 'white']}
             >
                Opublikuj
             </CustomButton>
          </View>
-      </>
+      </View>
    )
 }
 
