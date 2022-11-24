@@ -44,6 +44,7 @@ const CreatePost = ({ route }) => {
       mutationFn: postPost,
       onSuccess: () => {
          reset()
+         setPhoto(undefined)
          queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
          navigate('Home')
       },
