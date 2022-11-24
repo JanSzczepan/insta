@@ -5,11 +5,12 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { CustomButton } from './src/components'
 import { CreatePost, Home, Profile, Search } from './src/screens'
 import theme from './src/constants/theme'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { postPost } from './src/api'
+import { useQueryClient } from '@tanstack/react-query'
 import { POSTS_KEY } from './src/constants/queryKeys'
 import { useNavigation } from '@react-navigation/native'
-import { useCallback, useRef, useState } from 'react'
+import { useState } from 'react'
+import usePosts from './src/hooks/usePosts'
+import { useUserInfoContext } from './src/hooks/useUserInfoContext'
 
 const Tabs = createBottomTabNavigator()
 
@@ -19,23 +20,23 @@ const MainTabs = () => {
 
    const { navigate } = useNavigation()
 
+   const { user } = useUserInfoContext()
+   const { addPost } = usePosts(user?.id)
+
    const queryClient = useQueryClient()
 
-   const mutation = useMutation({
-      mutationFn: postPost,
-      onSuccess: () => {
-         setValue('')
-         setPhoto(undefined)
-         queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
-         navigate('Home')
-      },
-   })
+   const onSuccess = () => {
+      setValue('')
+      setPhoto(undefined)
+      queryClient.invalidateQueries({ queryKey: [POSTS_KEY, user?.id] })
+      navigate('Home')
+   }
 
    const onSubmit = () => {
       const description = value
       if (!description) return
       const image_url = photo ? photo : null
-      mutation.mutate({ description, image_url })
+      addPost(description, image_url, onSuccess)
    }
 
    return (

@@ -23,20 +23,6 @@ const Home = () => {
    const { posts } = usePosts(user.id)
 
    if (!posts) return null
-   // const { userState } = useAuthContext()
-   // const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
-
-   // const { navigate } = useNavigation()
-
-   // useEffect(() => {
-   //    if (userData && userState.user) {
-   //       if (!userData.data.first_name || !userData.data.last_name) {
-   //          navigate('UserInfo')
-   //       }
-   //    }
-   // }, [userData, navigate])
-
-   // if (!userData || !userState.user) return null
 
    return (
       <View>
