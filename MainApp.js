@@ -111,10 +111,7 @@ const MainApp = () => {
       Billabong: require('./assets/fonts/Billabong.ttf'),
    })
 
-   // const { data: userData } = useQuery({ queryKey: ['users'], queryFn: () => getUserData(userState.user?.id), enabled: !!userState.user }, { enabled: !!userState.user })
-
    const { user } = useUserInfoContext()
-   console.log(user)
 
    if (!loaded) return null
 

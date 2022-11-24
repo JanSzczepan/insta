@@ -15,10 +15,8 @@ const useLogin = () => {
       setError(false)
 
       try {
-         console.log(email, password)
          const { data, error } = await supabase.auth.signInWithPassword({ email, password })
 
-         //////////////////////////
          if (error) {
             setError(error)
             throw new Error(error)

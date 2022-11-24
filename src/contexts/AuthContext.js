@@ -13,7 +13,6 @@ export const AuthContext = createContext()
 
 const AuthContextProvider = ({ children }) => {
    const [userState, dispatch] = useReducer(authReducer, initialState)
-   console.log(userState)
 
    useEffect(() => {
       const getUser = async () => {

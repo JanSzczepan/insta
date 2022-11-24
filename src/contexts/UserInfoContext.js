@@ -12,8 +12,6 @@ const UserInfoContextProvider = ({ children }) => {
 
    const { data: userData, isLoading } = useQuery(['users', userState.user?.id], () => getUserData(userState.user?.id), { enabled: !!userState.user })
 
-   // if (isLoading) return null
-   console.log('---------------------')
    const user =
       userState.user && userData
          ? {

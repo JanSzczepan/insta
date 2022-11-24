@@ -15,10 +15,8 @@ const useSignup = () => {
       setError(false)
 
       try {
-         console.log('signup', email, password)
          const { data, error } = await supabase.auth.signUp({ email, password })
 
-         //////////////////////////
          if (error) {
             setError(error)
             throw new Error(error)

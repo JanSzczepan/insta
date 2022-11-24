@@ -38,7 +38,6 @@ const UserInfo = () => {
    const mutation = useMutation({
       mutationFn: updateUserInfo,
       onSuccess: () => {
-         console.log(user?.id)
          queryClient.invalidateQueries(['users', user?.id])
       },
    })
