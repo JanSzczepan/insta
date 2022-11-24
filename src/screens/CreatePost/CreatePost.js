@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, Button } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -51,12 +51,11 @@ const CreatePost = ({ route }) => {
    })
 
    const onSubmit = useCallback(
-      (photo) =>
-         ({ description }) => {
-            const image_url = photo ? photo : null
-            mutation.mutate({ description, image_url })
-         },
-      []
+      ({ description }) => {
+         const image_url = photo ? photo : null
+         mutation.mutate({ description, image_url })
+      },
+      [photo, mutation]
    )
 
    const pickImage = async () => {
@@ -119,7 +118,7 @@ const CreatePost = ({ route }) => {
                Pick image
             </CustomButton>
             <CustomButton
-               handleOnPress={handleSubmit(onSubmit(photo))}
+               handleOnPress={handleSubmit(onSubmit)}
                buttonVariant='post'
                textVariant={['medium', 'white']}
             >

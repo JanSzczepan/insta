@@ -36,8 +36,8 @@ export const getUserData = async (id) => {
    return response
 }
 
-export const updateUserInfo = async ({ id, first_name, last_name, img_url }) => {
-   const response = await supabase.from('users').update({ first_name, last_name }).eq('uuid', id)
+export const updateUserInfo = async ({ id, first_name, last_name, image_url }) => {
+   const response = await supabase.from('users').update({ first_name, last_name, image_url }).eq('uuid', id)
    // console.log(`User with id ${id} updated`, response)
    return response
 }

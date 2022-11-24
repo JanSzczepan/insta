@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
    },
    imageContainer: {
       flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+   },
+   imageUserContainer: {
+      marginTop: theme.SPACING.large,
+      alignItems: 'center',
+      justifyContent: 'center',
    },
    buttonsContainer: {
       flex: 1,

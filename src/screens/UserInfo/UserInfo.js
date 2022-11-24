@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { View, TextInput, Image } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
@@ -11,12 +11,21 @@ import { updateUserInfo } from '../../api'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import globalStyles from '../../constants/globalStyles'
 import theme from '../../constants/theme'
+import { useNavigation } from '@react-navigation/native'
 
-const UserInfo = () => {
+const UserInfo = ({ route }) => {
+   const [photo, setPhoto] = useState(route.params?.photo)
+
+   useEffect(() => {
+      setPhoto(route.params?.photo)
+   }, [route.params?.photo])
+
    const validation = yup.object().shape({
       name: yup.string().required('Please type your name.'),
       surname: yup.string().required('Please type your surname.'),
    })
+
+   const { navigate } = useNavigation()
 
    const {
       control,
@@ -27,7 +36,6 @@ const UserInfo = () => {
       defaultValues: {
          name: '',
          surname: '',
-         image: null,
       },
    })
 
@@ -42,16 +50,22 @@ const UserInfo = () => {
       },
    })
 
-   const onSubmit = useCallback(({ name, surname, image }) => {
-      const image_url = image ? Image.resolveAssetSource(image).uri : Image.resolveAssetSource(UserPlaceholder).uri
-      const { id } = user
-      mutation.mutate({ id, first_name: name, last_name: surname, img_url: image_url })
-   }, [])
+   const onSubmit = useCallback(
+      ({ name, surname }) => {
+         const image_url = photo ? photo : null
+         const { id } = user
+         mutation.mutate({ id, first_name: name, last_name: surname, image_url })
+      },
+      [photo]
+   )
 
    return (
       <View style={styles.container}>
          <View style={styles.imageContainer}>
-            <CustomImage variant='userInfo' />
+            <CustomImage
+               variant='userInfo'
+               source={photo}
+            />
          </View>
          <Controller
             control={control}
@@ -87,6 +101,13 @@ const UserInfo = () => {
             )}
             name={'surname'}
          />
+         <CustomButton
+            handleOnPress={() => navigate('CameraScreen', { isUserImage: true })}
+            buttonVariant='pickUserImage'
+            textVariant={['medium', 'blue', 'center', 'semiBold']}
+         >
+            Pick image
+         </CustomButton>
          <CustomButton
             handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'

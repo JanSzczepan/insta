@@ -20,14 +20,18 @@ const Profile = () => {
 
    if (isUserLoading) return null
    if (isLoading) return null
+   // if (!posts) return null
 
-   const { first_name, last_name, email } = user
+   const { first_name, last_name, email, image_url } = user
 
    return (
       <SafeAreaView style={styles.container}>
          <View style={styles.userContainer}>
             <View style={styles.userNameContainer}>
-               <CustomImage variant='user' />
+               <CustomImage
+                  variant='user'
+                  source={image_url}
+               />
                <Paragraph variant={['textMedium', 'black', 'semiBold']}>
                   {first_name} {last_name}
                </Paragraph>
@@ -38,7 +42,7 @@ const Profile = () => {
                </View>
                <View style={styles.textContainer}>
                   <Paragraph variant={['textSmall', 'black']}>
-                     {posts.length} Post{posts.length !== 1 && 's'}
+                     {posts?.length || '0'} Post{posts?.length !== 1 && 's'}
                   </Paragraph>
                </View>
                <CustomButton

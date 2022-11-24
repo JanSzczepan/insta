@@ -51,7 +51,10 @@ const MainTabs = () => {
             options={{
                headerTitle: 'New Post',
                headerRight: () => (
-                  <CustomButton buttonVariant='check'>
+                  <CustomButton
+                     handleOnPress={() => {}}
+                     buttonVariant='check'
+                  >
                      <Feather
                         name='check'
                         size={theme.SIZES.xxlarge}

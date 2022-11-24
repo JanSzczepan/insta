@@ -19,7 +19,7 @@ const UserInfoContextProvider = ({ children }) => {
               email: userState.user.email,
               first_name: userData.data.first_name,
               last_name: userData.data.last_name,
-              img_url: userData.data.img_url,
+              image_url: userData.data.image_url,
               isFilled: checkIsFilled(userData.data),
            }
          : null

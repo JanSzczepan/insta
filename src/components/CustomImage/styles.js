@@ -1,6 +1,15 @@
 import { StyleSheet } from 'react-native'
 import theme from '../../constants/theme'
 
+const userStyles = {
+   maxWidth: 350,
+   maxHeight: 350,
+   resizeMode: 'contain',
+   flex: 1,
+   aspectRatio: 1,
+   borderRadius: 350 / 2,
+}
+
 const styles = StyleSheet.create({
    fullWidth: {
       resizeMode: 'cover',
@@ -8,20 +17,14 @@ const styles = StyleSheet.create({
       aspectRatio: 1.5,
       marginVertical: 0,
    },
-   userInfo: {
-      maxWidth: 350,
-      maxHeight: 350,
-      resizeMode: 'contain',
-      flex: 1,
-      aspectRatio: 1,
-      borderRadius: 350 / 2,
-   },
+   userInfo: userStyles,
+   userCameraInfo: userStyles,
    user: {
       width: 80,
       height: 80,
       resizeMode: 'contain',
       aspectRatio: 1,
-      borderRadius: 40 / 2,
+      borderRadius: 80 / 2,
       marginBottom: theme.SPACING.small,
    },
    miniuser: {

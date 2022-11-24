@@ -73,6 +73,17 @@ const styles = StyleSheet.create({
       borderRadius: theme.RADIUS.standard,
       marginTop: theme.SPACING.small,
    },
+   pickUserImage: {
+      width: '100%',
+      alignSelf: 'center',
+      paddingHorizontal: theme.SPACING.xxlarge,
+      paddingVertical: theme.SPACING.medium,
+      backgroundColor: 'transparent',
+      borderWidth: 3,
+      borderColor: theme.COLORS.blue,
+      borderRadius: theme.RADIUS.standard,
+      marginBottom: theme.SPACING.medium,
+   },
    deletePost: {},
 })
 

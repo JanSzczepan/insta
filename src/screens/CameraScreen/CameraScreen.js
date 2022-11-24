@@ -1,5 +1,5 @@
-import { Text, View, SafeAreaView, Button, Image, useWindowDimensions } from 'react-native'
-import { useEffect, useRef, useState } from 'react'
+import { View, SafeAreaView, useWindowDimensions } from 'react-native'
+import { useRef, useState } from 'react'
 import { Camera } from 'expo-camera'
 import { useNavigation } from '@react-navigation/native'
 import styles from './styles'
@@ -7,29 +7,14 @@ import { CustomButton, CustomImage } from '../../components'
 import { AntDesign } from '@expo/vector-icons'
 import theme from '../../constants/theme'
 
-const CameraScreen = () => {
+const CameraScreen = ({ route }) => {
    const cameraRef = useRef()
    const [photo, setPhoto] = useState()
-   const [hasCameraPermission, setHasCameraPermission] = useState()
    const { navigate } = useNavigation()
+   const isUserImage = route.params?.isUserImage
 
-   // const { width } = useWindowDimensions()
-   // const height = Math.round((width * 1) / 1)
-
-   useEffect(() => {
-      const setCameraPermission = async () => {
-         const cameraPermission = await Camera.requestCameraPermissionsAsync()
-         setHasCameraPermission(cameraPermission.status === 'granted')
-      }
-
-      setCameraPermission()
-   }, [])
-
-   if (hasCameraPermission === undefined) {
-      return <Text>Requesting permissions...</Text>
-   } else if (!hasCameraPermission) {
-      navigate('CreatePost', { photo })
-   }
+   const { width } = useWindowDimensions()
+   const height = Math.round((width * 4) / 3)
 
    const takePic = async () => {
       const options = {
@@ -44,14 +29,14 @@ const CameraScreen = () => {
 
    if (photo) {
       const savePhoto = () => {
-         navigate('CreatePost', { photo: 'data:image/jpg;base64,' + photo.base64 })
+         navigate(isUserImage ? 'UserInfo' : 'CreatePost', { photo: 'data:image/jpg;base64,' + photo.base64 })
       }
 
       return (
          <SafeAreaView style={styles.wrapper}>
-            <View style={styles.imageContainer}>
+            <View style={[styles.imageContainer, isUserImage ? styles.imageUserContainer : null]}>
                <CustomImage
-                  variant='fullWidth'
+                  variant={isUserImage ? 'userCameraInfo' : 'fullWidth'}
                   source={'data:image/jpg;base64,' + photo.base64}
                />
             </View>
@@ -84,13 +69,13 @@ const CameraScreen = () => {
    return (
       <>
          <Camera
-            // ratio='1:1'
+            ratio='4:3'
             style={[
                styles.cameraContainer,
-               // {
-               //    height: height,
-               //    width: '100%',
-               // },
+               {
+                  height: height,
+                  width: '100%',
+               },
             ]}
             ref={cameraRef}
          ></Camera>

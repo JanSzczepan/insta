@@ -34,11 +34,6 @@ const MainApp = () => {
                            component={PostDetails}
                            options={{ headerShown: false }}
                         ></Stack.Screen>
-                        <Stack.Screen
-                           name='CameraScreen'
-                           component={CameraScreen}
-                           options={{ headerTitle: 'Camera' }}
-                        ></Stack.Screen>
                      </>
                   ) : (
                      <Stack.Screen
@@ -62,6 +57,11 @@ const MainApp = () => {
                   />
                </>
             )}
+            <Stack.Screen
+               name='CameraScreen'
+               component={CameraScreen}
+               options={{ headerTitle: 'Camera' }}
+            ></Stack.Screen>
          </Stack.Navigator>
       </NavigationContainer>
    )
