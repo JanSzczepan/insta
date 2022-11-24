@@ -5,10 +5,39 @@ import { MaterialIcons } from '@expo/vector-icons'
 import { CustomButton } from './src/components'
 import { CreatePost, Home, Profile, Search } from './src/screens'
 import theme from './src/constants/theme'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { postPost } from './src/api'
+import { POSTS_KEY } from './src/constants/queryKeys'
+import { useNavigation } from '@react-navigation/native'
+import { useCallback, useRef, useState } from 'react'
 
 const Tabs = createBottomTabNavigator()
 
 const MainTabs = () => {
+   const [photo, setPhoto] = useState()
+   const [value, setValue] = useState('')
+
+   const { navigate } = useNavigation()
+
+   const queryClient = useQueryClient()
+
+   const mutation = useMutation({
+      mutationFn: postPost,
+      onSuccess: () => {
+         setValue('')
+         setPhoto(undefined)
+         queryClient.invalidateQueries({ queryKey: [POSTS_KEY] })
+         navigate('Home')
+      },
+   })
+
+   const onSubmit = () => {
+      const description = value
+      if (!description) return
+      const image_url = photo ? photo : null
+      mutation.mutate({ description, image_url })
+   }
+
    return (
       <Tabs.Navigator initialRouteName='Home'>
          <Tabs.Screen
@@ -47,12 +76,21 @@ const MainTabs = () => {
          />
          <Tabs.Screen
             name='CreatePost'
-            component={CreatePost}
+            // component={CreatePost}
+            children={() => (
+               <CreatePost
+                  // route={params {photo: null}
+                  setPhoto={setPhoto}
+                  photo={photo}
+                  value={value}
+                  setValue={setValue}
+               />
+            )}
             options={{
                headerTitle: 'New Post',
                headerRight: () => (
                   <CustomButton
-                     handleOnPress={() => {}}
+                     handleOnPress={onSubmit}
                      buttonVariant='check'
                   >
                      <Feather

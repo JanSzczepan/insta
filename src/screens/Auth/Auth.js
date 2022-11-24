@@ -42,11 +42,10 @@ const Auth = () => {
    const handleSetIsLogIn = () => setIsLogIn((prevState) => !prevState)
 
    const onSubmit = useCallback(
-      (isLogIn) =>
-         ({ email, password }) => {
-            isLogIn ? login(email, password) : signup(email, password)
-         },
-      []
+      ({ email, password }) => {
+         isLogIn ? login(email, password) : signup(email, password)
+      },
+      [isLogIn]
    )
 
    return (
@@ -70,7 +69,11 @@ const Auth = () => {
                         placeholder='Email'
                         cursorColor={theme.COLORS.grey}
                      />
-                     {errors.email && <Paragraph variant={['textSmall', 'red']}>{errors.email.message}</Paragraph>}
+                     {errors.email && (
+                        <View style={styles.errorContainer}>
+                           <Paragraph variant={['textSmall', 'red']}>{errors.email.message}</Paragraph>
+                        </View>
+                     )}
                   </>
                )}
                name={'email'}
@@ -88,7 +91,11 @@ const Auth = () => {
                         cursorColor={theme.COLORS.grey}
                         secureTextEntry
                      />
-                     {errors.password && <Paragraph variant={['textSmall', 'red']}>{errors.password.message}</Paragraph>}
+                     {errors.password && (
+                        <View style={styles.errorContainer}>
+                           <Paragraph variant={['textSmall', 'red']}>{errors.password.message}</Paragraph>
+                        </View>
+                     )}
                   </>
                )}
                name={'password'}
@@ -107,7 +114,11 @@ const Auth = () => {
                            cursorColor={theme.COLORS.grey}
                            secureTextEntry
                         />
-                        {errors.passwordConfirm && <Paragraph variant={['textSmall', 'red']}>{errors.passwordConfirm.message}</Paragraph>}
+                        {errors.passwordConfirm && (
+                           <View style={styles.errorContainer}>
+                              <Paragraph variant={['textSmall', 'red']}>{errors.passwordConfirm.message}</Paragraph>
+                           </View>
+                        )}
                      </>
                   )}
                   name={'passwordConfirm'}
@@ -115,7 +126,7 @@ const Auth = () => {
             )}
          </View>
          <CustomButton
-            handleOnPress={handleSubmit(onSubmit(isLogIn))}
+            handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'
             textVariant={['textMedium', 'white', 'center', 'semiBold']}
          >

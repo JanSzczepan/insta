@@ -13,6 +13,10 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       marginTop: theme.SPACING.medium,
    },
+   errorContainer: {
+      marginTop: -theme.SPACING.medium,
+      marginBottom: theme.SPACING.medium,
+   },
 })
 
 export default styles
