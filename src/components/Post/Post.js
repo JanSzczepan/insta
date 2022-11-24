@@ -9,7 +9,6 @@ import theme from '../../constants/theme'
 import useCreator from '../../hooks/useCreator'
 import useLikes from '../../hooks/useLikes'
 import CustomButton from '../CustomButton/CustomButton'
-import Comment from '../Comment/Comment'
 
 const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment = () => {} }) => {
    const { description, id, creator_uuid, image_url } = post

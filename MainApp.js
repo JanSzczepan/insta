@@ -3,6 +3,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { Welcome, Auth, PostDetails, UserInfo, CameraScreen } from './src/screens'
 import { useUserInfoContext } from './src/hooks/useUserInfoContext'
 import MainTabs from './MainTabs'
+import { useAuthContext } from './src/hooks/useAuthContext'
+import { MainLoader } from './src/components'
 
 const nativeTheme = {
    ...DefaultTheme,
@@ -15,7 +17,10 @@ const nativeTheme = {
 const Stack = createNativeStackNavigator()
 
 const MainApp = () => {
-   const { user } = useUserInfoContext()
+   const { userState } = useAuthContext()
+   const { user, isLoading } = useUserInfoContext()
+
+   if (userState.user !== null && isLoading) return <MainLoader />
 
    return (
       <NavigationContainer theme={nativeTheme}>

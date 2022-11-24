@@ -1,12 +1,12 @@
 import { createContext, useEffect, useReducer } from 'react'
-import { SIGN_IN } from '../constants/actions'
+import { SIGN_IN, USER_NULL } from '../constants/actions'
 import { USER_PROFILE } from '../constants/secureStorageKeys'
 import { authReducer } from '../reducers/AuthReducer'
 import { getFromSecureStorage } from '../utils/secureStorage'
 
 const initialState = {
    isSignedIn: false,
-   user: null,
+   user: undefined,
 }
 
 export const AuthContext = createContext()
@@ -22,6 +22,10 @@ const AuthContextProvider = ({ children }) => {
             dispatch({
                type: SIGN_IN,
                payload: parsedUser.user,
+            })
+         } else {
+            dispatch({
+               type: USER_NULL,
             })
          }
       }
