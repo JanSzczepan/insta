@@ -46,6 +46,19 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
       alignItems: 'center',
    },
+   camera: {
+      width: 80,
+      height: 80,
+      alignSelf: 'center',
+      marginTop: theme.SPACING.medium,
+      backgroundColor: theme.COLORS.white,
+      borderWidth: 15,
+      borderColor: theme.COLORS.grey,
+      borderRadius: 80 / 2,
+   },
+   imageIcon: {
+      padding: theme.SPACING.medium,
+   },
    deletePost: {},
 })
 

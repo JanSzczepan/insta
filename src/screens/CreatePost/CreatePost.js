@@ -1,3 +1,4 @@
+import { useCallback } from 'react'
 import { View, TextInput } from 'react-native'
 import { useForm, Controller, useWatch } from 'react-hook-form'
 import * as yup from 'yup'
@@ -6,11 +7,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CustomButton, CustomImage, Paragraph } from '../../components'
 import styles from './styles'
 import { postPost } from '../../api'
-import { useCallback } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { POSTS_KEY } from '../../constants/queryKeys'
 
-const CreatePost = () => {
+const CreatePost = ({ route }) => {
+   const photo = route.params?.photo
+
    const validation = yup.object().shape({
       description: yup.string().required('Please type post description.'),
    })
@@ -52,12 +54,15 @@ const CreatePost = () => {
    }
 
    const description = returnValue(control, 'description')
-
+   console.log('yooooooooooooo')
    return (
       <>
          <View style={styles.container}>
             <View style={styles.imageContainer}>
-               <CustomImage variant='fullWidth' />
+               <CustomImage
+                  variant='fullWidth'
+                  source={photo}
+               />
             </View>
             <Paragraph variant={['textMedium', 'black']}>{description}</Paragraph>
             <View>
@@ -80,6 +85,13 @@ const CreatePost = () => {
                   name={'description'}
                />
             </View>
+            <CustomButton
+               handleOnPress={() => navigate('CameraScreen')}
+               buttonVariant='post'
+               textVariant={['medium', 'white']}
+            >
+               Camera
+            </CustomButton>
             <CustomButton
                handleOnPress={handleSubmit(onSubmit)}
                buttonVariant='post'

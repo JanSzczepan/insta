@@ -28,7 +28,7 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
       const text = likes.length === 1 ? `${likes.length} like` : `${likes.length} likes`
       return text
    }
-   console.log('wooooooooooo')
+
    const navigateToPost = (id, isComment, isDetail) => {
       if (isDetail && isComment) focusComment()
 

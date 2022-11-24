@@ -6,7 +6,7 @@ import { Octicons } from '@expo/vector-icons'
 import { Feather } from '@expo/vector-icons'
 import { MaterialIcons } from '@expo/vector-icons'
 
-import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails, UserInfo } from './src/screens'
+import { Welcome, Auth, Home, Search, CreatePost, Profile, PostDetails, UserInfo, CameraScreen } from './src/screens'
 import theme from './src/constants/theme'
 import { useUserInfoContext } from './src/hooks/useUserInfoContext'
 
@@ -22,7 +22,6 @@ const Stack = createNativeStackNavigator()
 const Tabs = createBottomTabNavigator()
 
 const MainTabs = () => {
-   console.log('render')
    return (
       <Tabs.Navigator initialRouteName='Home'>
          <Tabs.Screen
@@ -125,6 +124,11 @@ const MainApp = () => {
                            name='PostDetails'
                            component={PostDetails}
                            options={{ headerShown: false }}
+                        ></Stack.Screen>
+                        <Stack.Screen
+                           name='CameraScreen'
+                           component={CameraScreen}
+                           options={{ headerTitle: 'Camera' }}
                         ></Stack.Screen>
                      </>
                   ) : (
