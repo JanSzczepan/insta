@@ -1,5 +1,5 @@
 import { FlatList, View } from 'react-native'
-import { CustomButton, CustomImage, Paragraph, Post } from '../../components'
+import { CustomButton, CustomImage, MainLoader, Paragraph, Post } from '../../components'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import useLogout from '../../hooks/useLogout'
 import useUserPosts from '../../hooks/useUserPosts'
@@ -12,15 +12,13 @@ import { useState } from 'react'
 
 const Profile = () => {
    const [isGrid, setIsGrid] = useState(true)
-   const { user, isLoading: isUserLoading } = useUserInfoContext()
 
+   const { user, isLoading: isUserLoading } = useUserInfoContext()
    const { posts, isLoading } = useUserPosts(user?.id)
 
    const { logout } = useLogout()
 
-   if (isUserLoading) return null
-   if (isLoading) return null
-   // if (!posts) return null
+   if (isUserLoading || isLoading || !posts) return <MainLoader />
 
    const { first_name, last_name, email, image_url } = user
 
