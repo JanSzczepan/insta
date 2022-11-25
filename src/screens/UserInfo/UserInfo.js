@@ -95,7 +95,11 @@ const UserInfo = ({ route }) => {
                      placeholder='Type your name'
                      cursorColor={theme.COLORS.grey}
                   />
-                  {errors.name && <Paragraph variant={['textSmall', 'red']}>{errors.name.message}</Paragraph>}
+                  {errors.name && (
+                     <View style={styles.errorContainer}>
+                        <Paragraph variant={['textSmall', 'red']}>{errors.name.message}</Paragraph>
+                     </View>
+                  )}
                </>
             )}
             name={'name'}
@@ -112,7 +116,11 @@ const UserInfo = ({ route }) => {
                      placeholder='Type your surname'
                      cursorColor={theme.COLORS.grey}
                   />
-                  {errors.surname && <Paragraph variant={['textSmall', 'red']}>{errors.surname.message}</Paragraph>}
+                  {errors.surname && (
+                     <View style={styles.errorContainer}>
+                        <Paragraph variant={['textSmall', 'red']}>{errors.surname.message}</Paragraph>
+                     </View>
+                  )}
                </>
             )}
             name={'surname'}

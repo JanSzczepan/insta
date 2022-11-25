@@ -17,6 +17,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       justifyContent: 'space-between',
    },
+   errorContainer: {
+      alignSelf: 'flex-start',
+      marginTop: -theme.SPACING.medium,
+      marginBottom: theme.SPACING.medium,
+   },
 })
 
 export default styles
