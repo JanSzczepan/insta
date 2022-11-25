@@ -3,41 +3,25 @@ import { useQuery, useQueryClient, useMutation } from '@tanstack/react-query'
 import { useAuthContext } from '../../hooks/useAuthContext'
 import styles from './styles'
 import { deletePost, getPost } from '../../api'
-import { AddComment, Comment, CustomButton, Post } from '../../components'
+import { AddComment, Comment, CustomButton, MainLoader, Post } from '../../components'
 import { useNavigation } from '@react-navigation/native'
 import { useCallback, useRef } from 'react'
 import useComment from '../../hooks/useComment'
 import useCreator from '../../hooks/useCreator'
+import { useUserInfoContext } from '../../hooks/useUserInfoContext'
+import usePost from '../../hooks/usePost'
 
 const PostDetails = ({ route }) => {
    const { id, isComment } = route.params
    const commentRef = useRef(null)
 
-   const {
-      userState: { user },
-   } = useAuthContext()
+   const { user, isLoading: isUserLoading } = useUserInfoContext()
 
    const { comments } = useComment(id)
-   // const { user } = useCreator(comments)
 
-   const { navigate } = useNavigation()
-   const queryClient = useQueryClient()
+   const { post, isLoading } = usePost(user?.id, id)
 
-   const { data } = useQuery({ queryKey: ['post', id], queryFn: () => getPost(id) })
-
-   const mutation = useMutation({
-      mutationFn: deletePost,
-      onSuccess: () => {
-         queryClient.invalidateQueries({ queryKey: ['posts'] })
-         navigate('Home')
-      },
-   })
-
-   const handleDelete = useCallback(() => {
-      mutation.mutate(id)
-   }, [])
-
-   if (!data) return null
+   if (isLoading || !post || isUserLoading) return <MainLoader />
 
    const focusComment = () => {
       commentRef.current.focus()
@@ -50,7 +34,7 @@ const PostDetails = ({ route }) => {
    return (
       <>
          <Post
-            post={data.data}
+            post={post}
             isDetail={true}
             focusComment={focusComment}
             unFocusComment={unFocusComment}

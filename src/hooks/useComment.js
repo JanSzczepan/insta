@@ -3,7 +3,7 @@ import { createComment, deleteComment, getComments } from '../api'
 import { COMMENTS_KEY } from '../constants/queryKeys'
 
 const useComment = (postId) => {
-   const { data, isLoading: isQueryLoading, isError, error } = useQuery({ queryKey: [COMMENTS_KEY, postId], queryFn: () => getComments(postId) })
+   const { data, isLoading, isError, error } = useQuery({ queryKey: [COMMENTS_KEY, postId], queryFn: () => getComments(postId) })
    const queryClient = useQueryClient()
 
    const comments = data ? data.data : null
@@ -30,7 +30,7 @@ const useComment = (postId) => {
       mutationRemove.mutate(commentId)
    }
 
-   return { comments, addComment, removeComment }
+   return { comments, addComment, removeComment, isLoading }
 }
 
 export default useComment
