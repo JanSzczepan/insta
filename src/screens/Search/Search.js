@@ -16,7 +16,7 @@ const Search = () => {
 
    useEffect(() => {
       setFilteredPosts(posts)
-   }, [isLoading, posts.length])
+   }, [isLoading, posts?.length])
 
    if (isLoading || !posts)
       return (
