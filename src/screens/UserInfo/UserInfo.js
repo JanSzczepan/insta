@@ -49,7 +49,7 @@ const UserInfo = ({ route }) => {
 
    const onSuccess = () => {
       queryClient.invalidateQueries([USERS_KEY, user?.id])
-      navigate(route.params?.isUpdate ? 'Profile' : 'Home')
+      if (route.params?.isUpdate) navigate('Profile')
       setIsLoading(false)
    }
 

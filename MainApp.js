@@ -68,7 +68,7 @@ const MainApp = () => {
                options={{ headerTitle: 'Camera' }}
             ></Stack.Screen>
             <Stack.Screen
-               name='UserInfo'
+               name='UserInfoUpdate'
                component={UserInfo}
                options={{ headerShown: false }}
             />

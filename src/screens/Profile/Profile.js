@@ -29,7 +29,7 @@ const Profile = () => {
          <View style={styles.userContainer}>
             <Pressable
                style={styles.userNameContainer}
-               onPress={() => navigate('UserInfo', { photo: image_url, first_name, last_name, isUpdate: true })}
+               onPress={() => navigate('UserInfoUpdate', { photo: image_url, first_name, last_name, isUpdate: true })}
             >
                <CustomImage
                   variant='user'
