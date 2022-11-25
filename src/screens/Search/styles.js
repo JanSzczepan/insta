@@ -2,11 +2,13 @@ import { StyleSheet } from 'react-native'
 import theme from '../../constants/theme'
 
 const styles = StyleSheet.create({
-   container: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
+   searchContainer: {
       padding: theme.SPACING.medium,
+   },
+   postsContainer: {
+      flex: 1,
+      paddingVertical: theme.SPACING.xxsmall,
+      marginHorizontal: -theme.SPACING.xxsmall,
    },
 })
 
