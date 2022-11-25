@@ -17,6 +17,8 @@ export const SIZES = {
    xxlarge: 32,
    xxxlarge: 50,
    giant: 60,
+   insta: 35,
+   headerHeight: 70,
 }
 
 export const SPACING = {

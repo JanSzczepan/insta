@@ -1,7 +1,12 @@
-import { Text } from 'react-native'
+import { Text, View } from 'react-native'
+import styles from './styles'
 
 const Search = () => {
-   return <Text>Search</Text>
+   return (
+      <View style={styles.container}>
+         <Text>Search upcoming...</Text>
+      </View>
+   )
 }
 
 export default Search

@@ -48,7 +48,10 @@ const MainTabs = () => {
                headerTitle: 'Instagram',
                headerTitleStyle: {
                   fontFamily: theme.FONTS.special,
-                  fontSize: theme.SIZES.xxlarge,
+                  fontSize: theme.SIZES.insta,
+               },
+               headerStyle: {
+                  height: theme.SIZES.headerHeight,
                },
                tabBarLabel: () => null,
                tabBarIcon: () => (
@@ -77,10 +80,8 @@ const MainTabs = () => {
          />
          <Tabs.Screen
             name='CreatePost'
-            // component={CreatePost}
             children={() => (
                <CreatePost
-                  // route={params {photo: null}
                   setPhoto={setPhoto}
                   photo={photo}
                   value={value}
@@ -89,6 +90,9 @@ const MainTabs = () => {
             )}
             options={{
                headerTitle: 'New Post',
+               headerStyle: {
+                  height: theme.SIZES.headerHeight,
+               },
                headerRight: () => (
                   <CustomButton
                      handleOnPress={onSubmit}
