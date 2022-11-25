@@ -20,7 +20,7 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
 
    if (isLoading) return null
 
-   const { first_name, last_name } = creator
+   const { first_name, last_name, image_url: creatorImageUrl } = creator
 
    const returnLikes = (likes) => {
       if (!likes) return null
@@ -47,7 +47,10 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
          <View style={styles.container}>
             <View style={styles.nameContainer}>
                <View style={styles.miniImageContainer}>
-                  <CustomImage variant='miniuser' />
+                  <CustomImage
+                     variant='miniuser'
+                     source={creatorImageUrl}
+                  />
                </View>
                <Paragraph variant={['black', 'textMedium', 'semiBold']}>
                   {first_name} {last_name}
