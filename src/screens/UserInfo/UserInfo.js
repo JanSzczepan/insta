@@ -12,6 +12,8 @@ import globalStyles from '../../constants/globalStyles'
 import theme from '../../constants/theme'
 import { useNavigation } from '@react-navigation/native'
 import * as ImagePicker from 'expo-image-picker'
+import { USERS_KEY } from '../../constants/queryKeys'
+import useCreator from '../../hooks/useCreator'
 
 const UserInfo = ({ route }) => {
    const [photo, setPhoto] = useState(route.params?.photo)
@@ -40,22 +42,19 @@ const UserInfo = ({ route }) => {
    })
 
    const { user } = useUserInfoContext()
+   const { updateUser } = useCreator(user?.id)
 
    const queryClient = useQueryClient()
 
-   const mutation = useMutation({
-      mutationFn: updateUserInfo,
-      onSuccess: () => {
-         queryClient.invalidateQueries(['users', user?.id])
-         navigate(route.params?.isUpdate ? 'Profile' : 'Home')
-      },
-   })
+   const onSuccess = () => {
+      queryClient.invalidateQueries([USERS_KEY, user?.id])
+      navigate(route.params?.isUpdate ? 'Profile' : 'Home')
+   }
 
    const onSubmit = useCallback(
       ({ name, surname }) => {
          const image_url = photo ? photo : null
-         const { id } = user
-         mutation.mutate({ id, first_name: name, last_name: surname, image_url })
+         updateUser(user?.id, name, surname, image_url, onSuccess)
       },
       [photo]
    )

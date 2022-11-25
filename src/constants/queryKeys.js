@@ -1,5 +1,5 @@
 export const POSTS_KEY = 'posts'
 export const POST_KEY = 'post'
-export const USER_KEY = 'user'
+export const USERS_KEY = 'users'
 export const LIKES_KEY = 'likes'
 export const COMMENTS_KEY = 'comments'

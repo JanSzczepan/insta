@@ -2,6 +2,7 @@ import { createContext } from 'react'
 import { useAuthContext } from '../hooks/useAuthContext'
 import { useQuery } from '@tanstack/react-query'
 import { getUserData } from '../api'
+import { USERS_KEY } from '../constants/queryKeys'
 
 export const UserInfoContext = createContext()
 
@@ -10,7 +11,7 @@ const checkIsFilled = (data) => !!(data.first_name && data.last_name)
 const UserInfoContextProvider = ({ children }) => {
    const { userState } = useAuthContext()
 
-   const { data: userData, isLoading } = useQuery(['users', userState.user?.id], () => getUserData(userState.user?.id), { enabled: !!userState.user })
+   const { data: userData, isLoading } = useQuery([USERS_KEY, userState.user?.id], () => getUserData(userState.user?.id), { enabled: !!userState.user })
 
    const user =
       userState.user && userData?.data
