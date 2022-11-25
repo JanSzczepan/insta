@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native'
-import { Keyboard, Pressable, TouchableWithoutFeedback, View } from 'react-native'
+import { ActivityIndicator, Keyboard, Pressable, TouchableWithoutFeedback, View } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'
 import { AntDesign } from '@expo/vector-icons'
 import Paragraph from '../Paragraph/Paragraph'
@@ -9,6 +9,7 @@ import theme from '../../constants/theme'
 import useCreator from '../../hooks/useCreator'
 import useLikes from '../../hooks/useLikes'
 import CustomButton from '../CustomButton/CustomButton'
+import usePosts from '../../hooks/usePosts'
 
 const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment = () => {} }) => {
    const { description, id, creator_uuid, image_url } = post
@@ -18,9 +19,11 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
    const { creator, isLoading } = useCreator(creator_uuid)
    const { likes, isLiked, isLoading: isLikeLoading, likePost } = useLikes(id, creator_uuid)
 
+   const { deletePostFunction, isDeleteLoading } = usePosts(creator?.uuid)
+
    if (isLoading) return null
 
-   const { first_name, last_name, image_url: creatorImageUrl } = creator
+   const { first_name, last_name, image_url: creatorImageUrl, uuid } = creator
 
    const returnLikes = (likes) => {
       if (!likes) return null
@@ -109,6 +112,26 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
                         color={theme.COLORS.black}
                      />
                   </CustomButton>
+                  {uuid === creator_uuid && isDetail && (
+                     <CustomButton
+                        handleOnPress={() => deletePostFunction(id)}
+                        buttonVariant='trashIcon'
+                        disabled={isDeleteLoading}
+                     >
+                        {isDeleteLoading ? (
+                           <ActivityIndicator
+                              size='large'
+                              color={theme.COLORS.blue}
+                           />
+                        ) : (
+                           <FontAwesome5
+                              name='trash-alt'
+                              size={theme.SIZES.xlarge}
+                              color={theme.COLORS.grey}
+                           />
+                        )}
+                     </CustomButton>
+                  )}
                </View>
                <View style={styles.likesContainer}>
                   <Paragraph variant={['black', 'textMedium', 'semiBold']}>{returnLikes(likes)}</Paragraph>

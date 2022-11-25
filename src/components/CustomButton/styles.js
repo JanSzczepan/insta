@@ -29,6 +29,9 @@ const styles = StyleSheet.create({
    icon: {
       marginRight: theme.SPACING.large,
    },
+   trashIcon: {
+      marginLeft: 'auto',
+   },
    addComment: {
       paddingVertical: theme.SPACING.medium,
       paddingHorizontal: theme.SPACING.medium,

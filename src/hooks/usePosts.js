@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getPosts, postPost } from '../api'
+import { useState } from 'react'
+import { deletePost, getPosts, postPost } from '../api'
 import { POSTS_KEY } from '../constants/queryKeys'
 
 const usePosts = (userId) => {
@@ -11,6 +12,8 @@ const usePosts = (userId) => {
    const queryClient = useQueryClient()
    const { navigate } = useNavigation()
 
+   const [isDeleteLoading, setIsDeleteLoading] = useState(false)
+
    const addMutation = useMutation({
       mutationFn: postPost,
    })
@@ -20,6 +23,7 @@ const usePosts = (userId) => {
       onSuccess: () => {
          queryClient.invalidateQueries({ queryKey: [POSTS_KEY, userId] })
          navigate('Home')
+         setIsDeleteLoading(false)
       },
    })
 
@@ -27,11 +31,12 @@ const usePosts = (userId) => {
       addMutation.mutate({ description, image_url }, { onSuccess })
    }
 
-   const deletePost = async (id) => {
+   const deletePostFunction = async (id) => {
+      setIsDeleteLoading(true)
       deleteMutation.mutate(id)
    }
 
-   return { posts, addPost, deletePost, isLoading, isError, error }
+   return { posts, addPost, deletePostFunction, isLoading, isDeleteLoading, isError, error }
 }
 
 export default usePosts
