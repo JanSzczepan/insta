@@ -3,7 +3,7 @@ import { getUserData, updateUserInfo } from '../api'
 import { USERS_KEY } from '../constants/queryKeys'
 
 const useCreator = (id) => {
-   const { data, isLoading, isError, error } = useQuery({ queryKey: [USERS_KEY, id], queryFn: () => getUserData(id) })
+   const { data, isLoading, isError, error } = useQuery([USERS_KEY, id], () => getUserData(id))
 
    const creator = data ? data.data : null
 
