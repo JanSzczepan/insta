@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, ActivityIndicator } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
@@ -17,6 +17,7 @@ import useCreator from '../../hooks/useCreator'
 
 const UserInfo = ({ route }) => {
    const [photo, setPhoto] = useState(route.params?.photo)
+   const [isLoading, setIsLoading] = useState(false)
 
    useEffect(() => {
       setPhoto(route.params?.photo)
@@ -49,10 +50,12 @@ const UserInfo = ({ route }) => {
    const onSuccess = () => {
       queryClient.invalidateQueries([USERS_KEY, user?.id])
       navigate(route.params?.isUpdate ? 'Profile' : 'Home')
+      setIsLoading(false)
    }
 
    const onSubmit = useCallback(
       ({ name, surname }) => {
+         setIsLoading(true)
          const image_url = photo ? photo : null
          updateUser(user?.id, name, surname, image_url, onSuccess)
       },
@@ -134,8 +137,16 @@ const UserInfo = ({ route }) => {
             handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'
             textVariant={['medium', 'white', 'center', 'semiBold']}
+            disabled={isLoading}
          >
-            Save
+            {isLoading ? (
+               <ActivityIndicator
+                  size='small'
+                  color={theme.COLORS.white}
+               />
+            ) : (
+               'Save'
+            )}
          </CustomButton>
       </View>
    )
