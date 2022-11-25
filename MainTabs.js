@@ -11,12 +11,14 @@ import { useNavigation } from '@react-navigation/native'
 import { useState } from 'react'
 import usePosts from './src/hooks/usePosts'
 import { useUserInfoContext } from './src/hooks/useUserInfoContext'
+import { ActivityIndicator } from 'react-native'
 
 const Tabs = createBottomTabNavigator()
 
 const MainTabs = () => {
    const [photo, setPhoto] = useState()
    const [value, setValue] = useState('')
+   const [isLoading, setIsLoading] = useState(false)
 
    const { navigate } = useNavigation()
 
@@ -30,12 +32,14 @@ const MainTabs = () => {
       setPhoto(undefined)
       queryClient.invalidateQueries({ queryKey: [POSTS_KEY, user?.id] })
       navigate('Home')
+      setIsLoading(false)
    }
 
    const onSubmit = () => {
       const description = value
       if (!description) return
       const image_url = photo ? photo : null
+      setIsLoading(true)
       addPost(description, image_url, onSuccess)
    }
 
@@ -97,12 +101,20 @@ const MainTabs = () => {
                   <CustomButton
                      handleOnPress={onSubmit}
                      buttonVariant='check'
+                     disabled={isLoading}
                   >
-                     <Feather
-                        name='check'
-                        size={theme.SIZES.xxlarge}
-                        color={theme.COLORS.blue}
-                     />
+                     {isLoading ? (
+                        <ActivityIndicator
+                           size='large'
+                           color={theme.COLORS.blue}
+                        />
+                     ) : (
+                        <Feather
+                           name='check'
+                           size={theme.SIZES.xxlarge}
+                           color={theme.COLORS.blue}
+                        />
+                     )}
                   </CustomButton>
                ),
                tabBarLabel: () => null,

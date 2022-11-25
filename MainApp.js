@@ -19,7 +19,7 @@ const Stack = createNativeStackNavigator()
 const MainApp = () => {
    const { userState } = useAuthContext()
    const { user, isLoading } = useUserInfoContext()
-
+   console.log(userState.user)
    if (userState.user !== null && isLoading) return <MainLoader />
 
    return (

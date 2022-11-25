@@ -12,7 +12,7 @@ const Comment = ({ comment }) => {
       <View style={styles.commentContainer}>
          <View style={styles.commentNameContainer}>
             <Paragraph variant={['black', 'textMedium', 'semiBold']}>
-               {creator.first_name} {creator.last_name}
+               {creator?.first_name} {creator?.last_name}
             </Paragraph>
          </View>
          <Paragraph variant={['black', 'textSmall']}>{comment.body}</Paragraph>

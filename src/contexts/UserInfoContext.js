@@ -13,7 +13,7 @@ const UserInfoContextProvider = ({ children }) => {
    const { data: userData, isLoading } = useQuery(['users', userState.user?.id], () => getUserData(userState.user?.id), { enabled: !!userState.user })
 
    const user =
-      userState.user && userData
+      userState.user && userData?.data
          ? {
               id: userState.user.id,
               email: userState.user.email,

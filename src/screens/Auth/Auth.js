@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { View, TextInput } from 'react-native'
+import { View, TextInput, ActivityIndicator } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
@@ -12,8 +12,8 @@ import theme from '../../constants/theme'
 
 const Auth = () => {
    const [isLogIn, setIsLogIn] = useState(true)
-   const { signup, error: signupError } = useSignup()
-   const { login, error: loginError } = useLogin()
+   const { signup, error: signupError, isLoading: isSignupLoading } = useSignup()
+   const { login, error: loginError, isLoading: isLoginLoading } = useLogin()
 
    const validation = yup.object().shape({
       email: yup.string().email('Your email is not valid.').required('Please enter your email.'),
@@ -139,8 +139,18 @@ const Auth = () => {
             handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'
             textVariant={['textMedium', 'white', 'center', 'semiBold']}
+            disabled={!!(isLoginLoading || isSignupLoading)}
          >
-            {isLogIn ? 'Log In' : 'Register'}
+            {isLoginLoading || isSignupLoading ? (
+               <ActivityIndicator
+                  size='small'
+                  color={theme.COLORS.white}
+               />
+            ) : isLogIn ? (
+               'Log In'
+            ) : (
+               'Register'
+            )}
          </CustomButton>
          <View style={styles.wannaAuthWrapper}>
             <Paragraph variant={['textSmall', 'black']}>{isLogIn ? "Don't have an account?" : 'Already have an account?'}</Paragraph>
