@@ -25,6 +25,7 @@ const Search = () => {
                <SearchComponent
                   value={value}
                   filterPosts={filterPosts}
+                  disable={true}
                />
             </View>
             <MainLoader />

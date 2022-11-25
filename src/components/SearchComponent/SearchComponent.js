@@ -3,7 +3,7 @@ import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import theme from '../../constants/theme'
 
-const SearchComponent = ({ value, filterPosts }) => {
+const SearchComponent = ({ value, filterPosts, disable }) => {
    return (
       <View style={styles.container}>
          <Feather
@@ -17,6 +17,8 @@ const SearchComponent = ({ value, filterPosts }) => {
             onChangeText={(text) => filterPosts(text)}
             placeholder='Search'
             cursorColor={theme.COLORS.grey}
+            editable={!disable}
+            selectTextOnFocus={!disable}
          />
       </View>
    )
