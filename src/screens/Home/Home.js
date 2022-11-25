@@ -1,5 +1,5 @@
 import { FlatList, View } from 'react-native'
-import { Post } from '../../components'
+import { MainLoader, Post } from '../../components'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import { useNavigation } from '@react-navigation/native'
 import { useEffect } from 'react'
@@ -20,9 +20,9 @@ const Home = () => {
 
    if (!user) return null
 
-   const { posts } = usePosts(user.id)
+   const { posts, isLoading } = usePosts(user.id)
 
-   if (!posts) return null
+   if (isLoading || !posts) return <MainLoader />
 
    return (
       <View>
