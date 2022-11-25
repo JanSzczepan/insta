@@ -12,6 +12,11 @@ const styles = StyleSheet.create({
       flexDirection: 'row',
       marginBottom: theme.SPACING.large,
    },
+   buttonsContainer: {
+      width: '100%',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+   },
 })
 
 export default styles

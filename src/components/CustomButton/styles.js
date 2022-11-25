@@ -84,6 +84,18 @@ const styles = StyleSheet.create({
       borderRadius: theme.RADIUS.standard,
       marginBottom: theme.SPACING.medium,
    },
+   userInfo: {
+      width: '48%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingHorizontal: theme.SPACING.large,
+      paddingVertical: theme.SPACING.medium,
+      backgroundColor: 'transparent',
+      borderWidth: 3,
+      borderColor: theme.COLORS.blue,
+      borderRadius: theme.RADIUS.standard,
+      marginBottom: theme.SPACING.medium,
+   },
    deletePost: {},
 })
 

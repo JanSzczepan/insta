@@ -1,4 +1,4 @@
-import { FlatList, View } from 'react-native'
+import { FlatList, Pressable, View } from 'react-native'
 import { CustomButton, CustomImage, MainLoader, Paragraph, Post } from '../../components'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import useLogout from '../../hooks/useLogout'
@@ -9,9 +9,11 @@ import MiniPost from '../../components/MiniPost/MiniPost'
 import styles from './styles'
 import theme from '../../constants/theme'
 import { useState } from 'react'
+import { useNavigation } from '@react-navigation/native'
 
 const Profile = () => {
    const [isGrid, setIsGrid] = useState(true)
+   const { navigate } = useNavigation()
 
    const { user, isLoading: isUserLoading } = useUserInfoContext()
    const { posts, isLoading } = useUserPosts(user?.id)
@@ -25,7 +27,10 @@ const Profile = () => {
    return (
       <SafeAreaView style={styles.container}>
          <View style={styles.userContainer}>
-            <View style={styles.userNameContainer}>
+            <Pressable
+               style={styles.userNameContainer}
+               onPress={() => navigate('UserInfo', { photo: image_url, first_name, last_name, isUpdate: true })}
+            >
                <CustomImage
                   variant='user'
                   source={image_url}
@@ -33,7 +38,7 @@ const Profile = () => {
                <Paragraph variant={['textMedium', 'black', 'semiBold']}>
                   {first_name} {last_name}
                </Paragraph>
-            </View>
+            </Pressable>
             <View>
                <View style={styles.textContainer}>
                   <Paragraph variant={['textSmall', 'black']}>{email}</Paragraph>

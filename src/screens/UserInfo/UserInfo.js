@@ -1,17 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
-import { View, TextInput, Image } from 'react-native'
+import { View, TextInput } from 'react-native'
 import { useForm, Controller } from 'react-hook-form'
 import * as yup from 'yup'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { CustomButton, CustomImage, Paragraph } from '../../components'
 import styles from './styles'
-import UserPlaceholder from '../../../assets/images/UserPlaceholder.png'
 import { updateUserInfo } from '../../api'
 import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 import globalStyles from '../../constants/globalStyles'
 import theme from '../../constants/theme'
 import { useNavigation } from '@react-navigation/native'
+import * as ImagePicker from 'expo-image-picker'
 
 const UserInfo = ({ route }) => {
    const [photo, setPhoto] = useState(route.params?.photo)
@@ -34,8 +34,8 @@ const UserInfo = ({ route }) => {
    } = useForm({
       resolver: yupResolver(validation),
       defaultValues: {
-         name: '',
-         surname: '',
+         name: route.params?.first_name ? route.params?.first_name : '',
+         surname: route.params?.last_name ? route.params?.last_name : '',
       },
    })
 
@@ -47,6 +47,7 @@ const UserInfo = ({ route }) => {
       mutationFn: updateUserInfo,
       onSuccess: () => {
          queryClient.invalidateQueries(['users', user?.id])
+         navigate(route.params?.isUpdate ? 'Profile' : 'Home')
       },
    })
 
@@ -58,6 +59,19 @@ const UserInfo = ({ route }) => {
       },
       [photo]
    )
+
+   const pickImage = async () => {
+      const result = await ImagePicker.launchImageLibraryAsync({
+         mediaTypes: ImagePicker.MediaTypeOptions.All,
+         allowsEditing: true,
+         aspect: [1, 1],
+         quality: 1,
+      })
+
+      if (!result.canceled) {
+         setPhoto(result.assets[0].uri)
+      }
+   }
 
    return (
       <View style={styles.container}>
@@ -101,13 +115,22 @@ const UserInfo = ({ route }) => {
             )}
             name={'surname'}
          />
-         <CustomButton
-            handleOnPress={() => navigate('CameraScreen', { isUserImage: true })}
-            buttonVariant='pickUserImage'
-            textVariant={['medium', 'blue', 'center', 'semiBold']}
-         >
-            Pick image
-         </CustomButton>
+         <View style={styles.buttonsContainer}>
+            <CustomButton
+               handleOnPress={() => navigate('CameraScreen', { isUserImage: true })}
+               buttonVariant='userInfo'
+               textVariant={['medium', 'blue', 'center', 'semiBold']}
+            >
+               Camera
+            </CustomButton>
+            <CustomButton
+               handleOnPress={pickImage}
+               buttonVariant='userInfo'
+               textVariant={['medium', 'blue', 'center', 'semiBold']}
+            >
+               Pick image
+            </CustomButton>
+         </View>
          <CustomButton
             handleOnPress={handleSubmit(onSubmit)}
             buttonVariant='auth'

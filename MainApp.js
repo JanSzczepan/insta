@@ -67,6 +67,11 @@ const MainApp = () => {
                component={CameraScreen}
                options={{ headerTitle: 'Camera' }}
             ></Stack.Screen>
+            <Stack.Screen
+               name='UserInfo'
+               component={UserInfo}
+               options={{ headerShown: false }}
+            />
          </Stack.Navigator>
       </NavigationContainer>
    )
