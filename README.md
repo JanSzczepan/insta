@@ -26,7 +26,7 @@ You can add a photo from your device or use your phone's camera to take up a new
 
 Posts from all users are displayed on the homepage. Anyone can like them or add a new comment.
 
-![Post details screen](https://i.ibb.co/w7P7NT9/7.jpg)
+![Post details screen](https://i.ibb.co/FgC2pFM/7.jpg)
 After clicking on the post, the user is redirected to the post details screen. Here you can also like a post or add a new comment. If the user is the author of the post, he can delete it.
 
 ![Create post screen](https://i.ibb.co/n6NSTKV/8.jpg)
