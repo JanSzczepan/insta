@@ -38,7 +38,7 @@ Posts can be easily found using the search engine. After clicking on the searche
 ![User screen](https://i.ibb.co/Gp1RWtm/11.jpg)
 In this project I also added user screen, where you can find your profile info and your posts.
 
-![Two ways to display posts](https://i.ibb.co/0c1j0zK/10.jpg)
+![Two ways to display posts](https://i.ibb.co/6DbFVTR/10.jpg)
 I also added the functionality to display posts in two ways.
 
 ## Technologies used to make this project
