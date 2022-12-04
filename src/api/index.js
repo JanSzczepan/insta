@@ -1,7 +1,7 @@
 import { supabase } from '../supabase/supabaseClient'
 
 export const getPosts = async () => {
-   const response = await supabase.from('posts').select('*').is('archived_at', null)
+   const response = await supabase.from('posts').select('*').is('archived_at', null).order('created_at', { ascending: false }).limit(3)
    // console.log('Posts fetched', response)
    return response
 }

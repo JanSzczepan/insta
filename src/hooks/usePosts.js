@@ -7,7 +7,7 @@ import { POSTS_KEY } from '../constants/queryKeys'
 const usePosts = (userId) => {
    const { data, isLoading, isError, error } = useQuery({ queryKey: [POSTS_KEY, userId], queryFn: getPosts })
 
-   const posts = data?.data ? [...data.data].reverse() : null
+   const posts = data?.data ? data.data : null
 
    const queryClient = useQueryClient()
    const { navigate } = useNavigation()
