@@ -2,7 +2,7 @@
 
 **Instagram Clone**
 
-This project was created with React Native, Expo and Supabase!
+This project was created with **React Native**, **Expo** and **Supabase**!
 
 ## How does this work?
 
