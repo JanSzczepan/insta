@@ -13,7 +13,7 @@ export const getPost = async (id) => {
 }
 
 export const getUserPosts = async (id) => {
-   const response = await supabase.from('posts').select('*').eq('creator_uuid', id).is('archived_at', null)
+   const response = await supabase.from('posts').select('*').eq('creator_uuid', id).is('archived_at', null).limit(3)
    // console.log(`Posts for user with id ${id} fetched`, response)
    return response
 }
