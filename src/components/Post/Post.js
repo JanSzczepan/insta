@@ -10,17 +10,20 @@ import useCreator from '../../hooks/useCreator'
 import useLikes from '../../hooks/useLikes'
 import CustomButton from '../CustomButton/CustomButton'
 import usePosts from '../../hooks/usePosts'
+import { useUserInfoContext } from '../../hooks/useUserInfoContext'
 
 const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment = () => {} }) => {
    const { description, id, creator_uuid, image_url } = post
 
    const { navigate } = useNavigation()
 
+   const { user } = useUserInfoContext()
    const { creator, isLoading } = useCreator(creator_uuid)
    const { likes, isLiked, isLoading: isLikeLoading, likePost } = useLikes(id, creator_uuid)
 
    const { deletePostFunction, isDeleteLoading } = usePosts(creator?.uuid)
 
+   if (!user) return null
    if (isLoading) return null
 
    const { first_name, last_name, image_url: creatorImageUrl, uuid } = creator
@@ -38,7 +41,7 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
 
       navigate('PostDetails', { id, isComment })
    }
-
+   console.log({ uuid, creator_uuid })
    return (
       <TouchableWithoutFeedback
          onPress={() => {
@@ -112,7 +115,7 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
                         color={theme.COLORS.black}
                      />
                   </CustomButton>
-                  {uuid === creator_uuid && isDetail && (
+                  {user?.id === creator_uuid && isDetail && (
                      <CustomButton
                         handleOnPress={() => deletePostFunction(id)}
                         buttonVariant='trashIcon'
