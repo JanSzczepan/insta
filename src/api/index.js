@@ -49,8 +49,8 @@ export const getLikes = async (id) => {
 }
 
 export const checkLike = async ({ postId, creatorId }) => {
-   const response = supabase.from('likes').select('*').eq('post_id', postId).eq('creator_uuid', creatorId)
-   // console.log('checkLike', response)
+   const response = await supabase.from('likes').select('*').eq('post_id', postId)
+   // console.log(`Likes in post with id ${postId} checked`)
    return response
 }
 

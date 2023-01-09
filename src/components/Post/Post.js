@@ -19,11 +19,13 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
 
    const { user } = useUserInfoContext()
    const { creator, isLoading } = useCreator(creator_uuid)
+
+   if (!user) return null
+
    const { likes, isLiked, isLoading: isLikeLoading, likePost } = useLikes(id, creator_uuid)
 
    const { deletePostFunction, isDeleteLoading } = usePosts(creator?.uuid)
 
-   if (!user) return null
    if (isLoading) return null
 
    const { first_name, last_name, image_url: creatorImageUrl, uuid } = creator
@@ -41,7 +43,7 @@ const Post = ({ post, isDetail = false, focusComment = () => {}, unFocusComment 
 
       navigate('PostDetails', { id, isComment })
    }
-   console.log({ uuid, creator_uuid })
+
    return (
       <TouchableWithoutFeedback
          onPress={() => {
