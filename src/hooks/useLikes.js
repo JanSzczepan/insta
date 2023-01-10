@@ -37,9 +37,9 @@ const useLikes = (postId, creatorId) => {
 
    const checkIsLiked = async (postId, creatorId) => {
       const data = await checkLike({ postId, creatorId })
-      // console.log({ postId }, { creatorId }, { data: data.data })
+
       const index = data?.data?.findIndex((item) => item.creator_uuid === user?.id)
-      // console.log({ postId }, { index })
+
       const isPostLiked = !Boolean(index == -1)
       setIsLiked(isPostLiked)
 
