@@ -20,7 +20,7 @@ const Home = () => {
 
    if (!user) return null
 
-   const { posts, isLoading } = usePosts(user.id)
+   const { posts, getMorePosts, isLoading, isMorePostsLoading } = usePosts(user.id)
 
    if (isLoading || !posts) return <MainLoader />
 
@@ -30,6 +30,7 @@ const Home = () => {
             data={posts}
             renderItem={({ item }) => <Post post={item} />}
             keyExtractor={(item) => item.id}
+            onEndReached={() => !isMorePostsLoading && getMorePosts()}
          />
       </View>
    )
