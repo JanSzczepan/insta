@@ -31,6 +31,8 @@ const Home = () => {
             renderItem={({ item }) => <Post post={item} />}
             keyExtractor={(item) => item.id}
             onEndReached={() => !isMorePostsLoading && getMorePosts()}
+            onEndReachedThreshold={1}
+            overScrollMode='never'
          />
       </View>
    )
